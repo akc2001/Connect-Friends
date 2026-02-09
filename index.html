@@ -6,47 +6,43 @@
 <title>Connect Friends</title>
 <style>
   :root {
-    --bg1: #0d0015;
-    --bg2: #1a0030;
-    --bg3: #2d1052;
-    --surface: rgba(30,10,60,0.7);
-    --surface2: rgba(50,20,80,0.6);
-    --accent: #a855f7;
-    --accent2: #c084fc;
-    --accent3: #d8b4fe;
-    --text: #ffffff;
-    --text2: #c4b5d9;
-    --danger: #ef4444;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --maybe: #f59e0b;
-    --cant: #ef4444;
-    --going: #10b981;
-    --border: rgba(168,85,247,0.25);
+    --royal: #43215F;
+    --royal-light: #5a3478;
+    --royal-dark: #321848;
+    --pearl: #FFFFFF;
+    --charcoal: #2E2A35;
+    --gold: #E6D6A8;
+    --gold-dark: #c9b87a;
+    --gold-light: #f0e6c4;
+    --surface: #FFFFFF;
+    --surface2: #F7F4F9;
+    --surface3: #EDE8F2;
+    --text: #2E2A35;
+    --text2: #6B6273;
+    --danger: #C0392B;
+    --success: #27AE60;
+    --warning: #D4A017;
+    --maybe: #D4A017;
+    --cant: #C0392B;
+    --going: #27AE60;
+    --border: rgba(67,33,95,0.15);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
     font-family:'Segoe UI',system-ui,sans-serif; color:var(--text); min-height:100vh;
-    background: linear-gradient(135deg, #0d0015 0%, #1a0033 20%, #2d1052 40%, #3b1578 55%, #4a1a8a 65%, #2d1052 80%, #1a0033 100%);
+    background: linear-gradient(160deg, #f7f4f9 0%, #ede8f2 40%, #e6d6a8 100%);
     background-attachment: fixed;
   }
-  body::before {
-    content:''; position:fixed; inset:0; z-index:-1;
-    background: radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(168,85,247,0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(192,132,252,0.05) 0%, transparent 70%);
-  }
 
-  /* Toast */
   #toast-container { position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:10px; }
   .toast {
-    background: linear-gradient(135deg, #7c3aed, #6d28d9);
-    color:#fff; padding:14px 20px; border-radius:12px; min-width:280px; max-width:340px;
-    box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+    background: linear-gradient(135deg, var(--royal), var(--royal-dark));
+    color:var(--pearl); padding:14px 20px; border-radius:12px; min-width:280px; max-width:340px;
+    box-shadow: 0 8px 32px rgba(67,33,95,0.3);
     animation: slideIn 0.4s cubic-bezier(0.16,1,0.3,1), fadeOut 0.4s 4.6s forwards;
-    display:flex; align-items:flex-start; gap:12px; backdrop-filter:blur(10px);
+    display:flex; align-items:flex-start; gap:12px;
   }
-  .toast.reminder { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .toast.reminder { background: linear-gradient(135deg, var(--gold-dark), var(--warning)); color:var(--charcoal); }
   .toast-icon { font-size:20px; margin-top:2px; }
   .toast-content { flex:1; }
   .toast-title { font-weight:700; font-size:14px; }
@@ -54,165 +50,239 @@
   @keyframes slideIn { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
   @keyframes fadeOut { to{transform:translateX(120%);opacity:0} }
 
+  /* Welcome / Join Screen */
+  .welcome-screen {
+    display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px;
+  }
+  .welcome-card {
+    background:var(--pearl); border-radius:24px; padding:40px; max-width:440px; width:100%;
+    box-shadow: 0 20px 60px rgba(67,33,95,0.15); text-align:center;
+  }
+  .welcome-logo { font-size:48px; margin-bottom:12px; }
+  .welcome-card h1 { font-size:28px; color:var(--royal); margin-bottom:6px; font-weight:800; }
+  .welcome-card p { color:var(--text2); font-size:14px; margin-bottom:28px; line-height:1.5; }
+  .welcome-divider {
+    display:flex; align-items:center; gap:12px; margin:24px 0; color:var(--text2); font-size:13px;
+  }
+  .welcome-divider::before, .welcome-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+  .welcome-input {
+    width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--charcoal);
+    padding:12px 16px; border-radius:12px; font-size:15px; font-family:inherit; margin-bottom:12px;
+  }
+  .welcome-input:focus { outline:none; border-color:var(--royal); box-shadow:0 0 8px rgba(67,33,95,0.15); }
+  .welcome-input::placeholder { color:var(--text2); }
+  .welcome-btn {
+    width:100%; padding:13px; border-radius:12px; border:none; font-size:15px; font-weight:700;
+    cursor:pointer; transition:0.2s; margin-bottom:8px;
+  }
+  .welcome-btn-primary { background:var(--royal); color:var(--pearl); }
+  .welcome-btn-primary:hover { background:var(--royal-light); transform:translateY(-1px); box-shadow:0 4px 15px rgba(67,33,95,0.3); }
+  .welcome-btn-gold { background:var(--gold); color:var(--charcoal); }
+  .welcome-btn-gold:hover { background:var(--gold-dark); transform:translateY(-1px); }
+  .welcome-code {
+    display:inline-block; background:var(--surface2); border:2px dashed var(--gold-dark);
+    padding:10px 24px; border-radius:12px; font-size:22px; font-weight:800; letter-spacing:4px;
+    color:var(--royal); margin:12px 0; font-family:monospace; user-select:all;
+  }
+  .welcome-small { font-size:12px; color:var(--text2); margin-top:8px; }
+  .welcome-back-btn {
+    background:none; border:none; color:var(--royal); cursor:pointer; font-size:13px;
+    margin-top:12px; text-decoration:underline;
+  }
+  .welcome-error { color:var(--danger); font-size:13px; margin-bottom:8px; display:none; }
+
   /* Header */
   header {
-    background: rgba(20,5,40,0.8);
-    border-bottom:1px solid var(--border);
+    background: var(--royal);
+    border-bottom:2px solid var(--gold);
     padding:16px 24px; display:flex; align-items:center; justify-content:space-between;
-    backdrop-filter:blur(20px);
+    box-shadow: 0 4px 20px rgba(67,33,95,0.2);
   }
   .header-left { display:flex; align-items:center; gap:12px; }
   .menu-btn {
-    display:none; background:rgba(50,20,80,0.8); border:1px solid var(--border); color:var(--text);
+    display:none; background:var(--royal-light); border:1px solid rgba(255,255,255,0.2); color:var(--pearl);
     width:40px; height:40px; border-radius:10px; cursor:pointer; font-size:20px;
     align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;
   }
-  .menu-btn:hover { background:var(--accent); }
+  .menu-btn:hover { background:var(--gold); color:var(--charcoal); }
   .logo { display:flex; align-items:center; gap:12px; }
   .logo-icon {
-    width:42px; height:42px; background:linear-gradient(135deg,#a855f7,#7c3aed);
+    width:42px; height:42px; background: var(--gold);
     border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px;
-    box-shadow: 0 4px 15px rgba(168,85,247,0.4);
+    box-shadow: 0 4px 15px rgba(230,214,168,0.3);
   }
-  .logo h1 { font-size:22px; font-weight:700; background:linear-gradient(135deg,#c084fc,#e9d5ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .logo h1 { font-size:22px; font-weight:700; color:var(--pearl); letter-spacing:0.5px; }
   .user-area { display:flex; align-items:center; gap:12px; }
-  .user-select { background:rgba(50,20,80,0.8); color:var(--text); border:1px solid var(--border); padding:8px 14px; border-radius:10px; font-size:14px; cursor:pointer; }
-  .user-select:focus { outline:none; border-color:var(--accent); }
-  .user-select option { background:#1a0033; }
-  .notification-bell { position:relative; background:rgba(50,20,80,0.8); border:1px solid var(--border); color:var(--text); width:40px; height:40px; border-radius:10px; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
-  .notification-bell:hover { background:var(--accent); }
-  .notification-bell .badge { position:absolute; top:-4px; right:-4px; background:var(--danger); color:#fff; font-size:10px; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; }
+  .user-select {
+    background:var(--royal-light); color:var(--pearl); border:1px solid rgba(255,255,255,0.2);
+    padding:8px 14px; border-radius:10px; font-size:14px; cursor:pointer;
+  }
+  .user-select:focus { outline:none; border-color:var(--gold); }
+  .user-select option { background:var(--royal); color:var(--pearl); }
+  .header-code {
+    background:rgba(230,214,168,0.2); color:var(--gold); border:1px solid rgba(230,214,168,0.3);
+    padding:6px 12px; border-radius:8px; font-size:12px; font-weight:700; letter-spacing:2px;
+    font-family:monospace; cursor:pointer; transition:0.2s;
+  }
+  .header-code:hover { background:rgba(230,214,168,0.3); }
+  .notification-bell {
+    position:relative; background:var(--royal-light); border:1px solid rgba(255,255,255,0.2);
+    color:var(--pearl); width:40px; height:40px; border-radius:10px; cursor:pointer; font-size:18px;
+    display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;
+  }
+  .notification-bell:hover { background:var(--gold); color:var(--charcoal); }
+  .notification-bell .badge {
+    position:absolute; top:-4px; right:-4px; background:var(--danger); color:#fff;
+    font-size:10px; width:18px; height:18px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  .leave-btn {
+    background:rgba(192,57,43,0.15); color:#e74c3c; border:1px solid rgba(192,57,43,0.3);
+    padding:8px 12px; border-radius:10px; font-size:12px; font-weight:600; cursor:pointer; transition:0.2s;
+  }
+  .leave-btn:hover { background:rgba(192,57,43,0.25); }
 
-  /* Layout */
   .app { display:flex; height:calc(100vh - 75px); }
 
-  /* Sidebar */
   .sidebar {
-    width:290px; background:rgba(15,5,30,0.6); border-right:1px solid var(--border);
-    padding:20px; display:flex; flex-direction:column; gap:20px; overflow-y:auto;
-    backdrop-filter:blur(10px); flex-shrink:0;
+    width:290px; background:var(--pearl); border-right:1px solid var(--border);
+    padding:20px; display:flex; flex-direction:column; gap:20px; overflow-y:auto; flex-shrink:0;
   }
   .main { flex:1; padding:24px; overflow-y:auto; }
 
-  /* Sidebar overlay for mobile */
   .sidebar-overlay {
-    display:none; position:fixed; inset:0; background:rgba(5,0,15,0.6); z-index:500;
+    display:none; position:fixed; inset:0; background:rgba(46,42,53,0.4); z-index:500;
     backdrop-filter:blur(4px);
   }
   .sidebar-overlay.active { display:block; }
 
-  .section-title { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text2); margin-bottom:8px; font-weight:600; }
+  .section-title {
+    font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--royal); margin-bottom:8px; font-weight:700;
+  }
   .member-list { display:flex; flex-direction:column; gap:6px; }
   .member {
-    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px;
-    cursor:pointer; transition:0.2s;
+    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; transition:0.2s;
   }
-  .member:hover { background:rgba(168,85,247,0.1); }
+  .member:hover { background:var(--surface3); }
   .member-avatar {
     width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-size:13px; font-weight:700; color:#fff; flex-shrink:0;
   }
-  .member-name { font-size:14px; font-weight:500; }
+  .member-name { font-size:14px; font-weight:500; color:var(--charcoal); }
   .member-status { font-size:11px; color:var(--text2); }
 
   .add-member-input { display:flex; gap:6px; margin-top:4px; }
   .add-member-input input {
-    flex:1; background:rgba(50,20,80,0.6); border:1px solid var(--border); color:var(--text);
+    flex:1; background:var(--surface2); border:1px solid var(--border); color:var(--charcoal);
     padding:8px 12px; border-radius:8px; font-size:13px;
   }
-  .add-member-input input:focus { outline:none; border-color:var(--accent); }
+  .add-member-input input:focus { outline:none; border-color:var(--royal); }
   .add-member-input button {
-    background:var(--accent); color:#fff; border:none; padding:8px 12px; border-radius:8px;
+    background:var(--royal); color:var(--pearl); border:none; padding:8px 12px; border-radius:8px;
     cursor:pointer; font-weight:600; font-size:13px; transition:0.2s;
   }
-  .add-member-input button:hover { background:#9333ea; }
+  .add-member-input button:hover { background:var(--royal-light); }
 
   .sidebar-close {
-    display:none; background:none; border:none; color:var(--text); font-size:24px;
+    display:none; background:none; border:none; color:var(--charcoal); font-size:24px;
     cursor:pointer; align-self:flex-end; padding:4px 8px; margin:-8px -8px 0 0;
   }
 
-  .upcoming-event {
-    padding:10px 12px; background:rgba(50,20,80,0.4); border-radius:10px;
-    border-left:3px solid var(--accent); margin-bottom:8px; cursor:pointer; transition:0.2s;
-    backdrop-filter:blur(5px);
+  .share-box {
+    background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center;
   }
-  .upcoming-event:hover { transform:translateX(4px); background:rgba(50,20,80,0.6); }
-  .upcoming-event .ue-title { font-size:13px; font-weight:600; }
+  .share-box .share-label { font-size:11px; color:var(--text2); margin-bottom:6px; }
+  .share-box .share-code {
+    font-size:20px; font-weight:800; letter-spacing:3px; color:var(--royal);
+    font-family:monospace; cursor:pointer;
+  }
+  .share-box .share-hint { font-size:10px; color:var(--text2); margin-top:4px; }
+
+  .upcoming-event {
+    padding:10px 12px; background:var(--surface2); border-radius:10px;
+    border-left:3px solid var(--royal); margin-bottom:8px; cursor:pointer; transition:0.2s;
+  }
+  .upcoming-event:hover { transform:translateX(4px); background:var(--surface3); }
+  .upcoming-event .ue-title { font-size:13px; font-weight:600; color:var(--charcoal); }
   .upcoming-event .ue-time { font-size:11px; color:var(--text2); margin-top:2px; }
-  .upcoming-event .ue-people { font-size:11px; color:var(--accent2); margin-top:4px; }
+  .upcoming-event .ue-people { font-size:11px; color:var(--royal); margin-top:4px; }
   .upcoming-event .ue-rsvp { font-size:10px; margin-top:4px; display:flex; gap:8px; }
   .ue-rsvp-tag { padding:2px 8px; border-radius:10px; font-weight:600; }
 
-  /* Calendar */
   .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
-  .cal-header h2 { font-size:26px; font-weight:700; }
+  .cal-header h2 { font-size:26px; font-weight:700; color:var(--royal); }
   .cal-nav { display:flex; gap:8px; }
   .cal-nav button {
-    background:rgba(50,20,80,0.6); border:1px solid var(--border); color:var(--text);
+    background:var(--pearl); border:1px solid var(--border); color:var(--royal);
     width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:16px;
     display:flex; align-items:center; justify-content:center; transition:0.2s;
   }
-  .cal-nav button:hover { background:var(--accent); border-color:var(--accent); }
+  .cal-nav button:hover { background:var(--royal); color:var(--pearl); border-color:var(--royal); }
 
   .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .cal-day-name { text-align:center; font-size:12px; color:var(--text2); padding:8px 0; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
-  .cal-day {
-    min-height:100px; background:rgba(25,10,50,0.5); border:1px solid transparent; border-radius:12px;
-    padding:8px; cursor:pointer; transition:0.2s; position:relative; backdrop-filter:blur(5px);
+  .cal-day-name {
+    text-align:center; font-size:12px; color:var(--royal); padding:8px 0;
+    font-weight:700; text-transform:uppercase; letter-spacing:1px;
   }
-  .cal-day:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 4px 20px rgba(168,85,247,0.2); }
-  .cal-day.today { border-color:var(--accent); background:rgba(168,85,247,0.12); box-shadow:0 0 20px rgba(168,85,247,0.15); }
-  .cal-day.other-month { opacity:0.3; }
-  .cal-day .day-num { font-size:13px; font-weight:600; margin-bottom:4px; }
-  .cal-day.today .day-num { color:var(--accent3); }
+  .cal-day {
+    min-height:100px; background:var(--pearl); border:1px solid var(--border); border-radius:12px;
+    padding:8px; cursor:pointer; transition:0.2s; position:relative;
+    box-shadow: 0 1px 3px rgba(67,33,95,0.05);
+  }
+  .cal-day:hover { border-color:var(--royal); transform:translateY(-2px); box-shadow:0 4px 20px rgba(67,33,95,0.12); }
+  .cal-day.today { border-color:var(--gold-dark); background:linear-gradient(135deg, #faf6eb, #f7f4f9); box-shadow:0 0 15px rgba(230,214,168,0.3); }
+  .cal-day.other-month { opacity:0.35; }
+  .cal-day .day-num { font-size:13px; font-weight:600; margin-bottom:4px; color:var(--charcoal); }
+  .cal-day.today .day-num { color:var(--royal); font-weight:700; }
   .cal-event {
     font-size:10px; padding:3px 6px; border-radius:6px; margin-bottom:3px;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff; font-weight:500; cursor:pointer;
   }
-  .cal-event:hover { filter:brightness(1.2); }
+  .cal-event:hover { filter:brightness(1.1); }
 
-  /* Modal */
   .modal-overlay {
-    display:none; position:fixed; inset:0; background:rgba(5,0,15,0.7); z-index:1000;
-    align-items:center; justify-content:center; backdrop-filter:blur(6px);
+    display:none; position:fixed; inset:0; background:rgba(46,42,53,0.5); z-index:1000;
+    align-items:center; justify-content:center; backdrop-filter:blur(4px);
   }
   .modal-overlay.active { display:flex; }
   .modal {
-    background: linear-gradient(145deg, rgba(30,10,60,0.95), rgba(20,5,40,0.98));
-    border:1px solid var(--border); border-radius:20px;
+    background:var(--pearl); border:1px solid var(--border); border-radius:20px;
     padding:28px; width:460px; max-width:92vw; max-height:90vh; overflow-y:auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(168,85,247,0.1);
+    box-shadow: 0 20px 60px rgba(67,33,95,0.2);
     animation: modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
   }
   @keyframes modalIn { from{transform:scale(0.9) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
-  .modal h3 { font-size:20px; margin-bottom:20px; font-weight:700; }
+  .modal h3 { font-size:20px; margin-bottom:20px; font-weight:700; color:var(--royal); }
   .form-group { margin-bottom:16px; }
-  .form-group label { display:block; font-size:12px; color:var(--text2); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+  .form-group label {
+    display:block; font-size:12px; color:var(--royal); margin-bottom:6px;
+    font-weight:600; text-transform:uppercase; letter-spacing:0.5px;
+  }
   .form-group input, .form-group select, .form-group textarea {
-    width:100%; background:rgba(50,20,80,0.5); border:1px solid var(--border); color:var(--text);
+    width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--charcoal);
     padding:10px 14px; border-radius:10px; font-size:14px; font-family:inherit;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(168,85,247,0.2); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline:none; border-color:var(--royal); box-shadow:0 0 8px rgba(67,33,95,0.15);
+  }
   .form-group textarea { resize:vertical; min-height:60px; }
-  .form-group input[type="date"]::-webkit-calendar-picker-indicator,
-  .form-group input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.7); }
 
   .people-checkboxes { display:flex; flex-wrap:wrap; gap:8px; }
   .people-checkboxes label {
     display:flex; align-items:center; gap:6px; padding:6px 12px;
-    background:rgba(50,20,80,0.5); border:1px solid var(--border); border-radius:20px;
-    cursor:pointer; font-size:13px; transition:0.2s; text-transform:none; letter-spacing:0;
+    background:var(--surface2); border:1px solid var(--border); border-radius:20px;
+    cursor:pointer; font-size:13px; transition:0.2s; text-transform:none; letter-spacing:0; color:var(--charcoal);
   }
-  .people-checkboxes label:has(input:checked) { background:var(--accent); border-color:var(--accent); }
+  .people-checkboxes label:has(input:checked) { background:var(--royal); border-color:var(--royal); color:var(--pearl); }
   .people-checkboxes label input { display:none; }
 
   .reminder-options { display:flex; flex-wrap:wrap; gap:6px; }
   .reminder-options label {
-    padding:6px 12px; background:rgba(50,20,80,0.5); border:1px solid var(--border);
-    border-radius:20px; cursor:pointer; font-size:12px; transition:0.2s; text-transform:none; letter-spacing:0;
+    padding:6px 12px; background:var(--surface2); border:1px solid var(--border);
+    border-radius:20px; cursor:pointer; font-size:12px; transition:0.2s; text-transform:none; letter-spacing:0; color:var(--charcoal);
   }
-  .reminder-options label:has(input:checked) { background:var(--warning); border-color:var(--warning); color:#000; }
+  .reminder-options label:has(input:checked) { background:var(--gold); border-color:var(--gold-dark); color:var(--charcoal); font-weight:600; }
   .reminder-options label input { display:none; }
 
   .modal-actions { display:flex; gap:10px; margin-top:20px; }
@@ -220,35 +290,32 @@
     padding:10px 20px; border-radius:10px; border:none; font-size:14px; font-weight:600;
     cursor:pointer; transition:0.2s; flex:1;
   }
-  .btn-primary { background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; }
-  .btn-primary:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(168,85,247,0.4); }
-  .btn-secondary { background:rgba(50,20,80,0.6); color:var(--text); border:1px solid var(--border); }
-  .btn-secondary:hover { background:rgba(70,30,100,0.6); }
+  .btn-primary { background:var(--royal); color:var(--pearl); }
+  .btn-primary:hover { background:var(--royal-light); transform:translateY(-1px); box-shadow:0 4px 15px rgba(67,33,95,0.3); }
+  .btn-secondary { background:var(--surface2); color:var(--charcoal); border:1px solid var(--border); }
+  .btn-secondary:hover { background:var(--surface3); }
   .btn-danger { background:var(--danger); color:#fff; flex:0; padding:10px 16px; }
-  .btn-danger:hover { background:#dc2626; }
 
-  /* Event detail */
   .event-detail-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
   .event-color-dot { width:14px; height:14px; border-radius:50%; flex-shrink:0; }
   .event-detail-time { color:var(--text2); font-size:14px; margin-bottom:12px; }
   .event-detail-desc { color:var(--text2); font-size:14px; margin-bottom:16px; line-height:1.5; }
   .event-detail-reminder { font-size:12px; color:var(--warning); margin-bottom:16px; }
 
-  /* RSVP */
   .rsvp-section { margin-bottom:16px; }
   .rsvp-buttons { display:flex; gap:8px; margin-bottom:12px; }
   .rsvp-btn {
     flex:1; padding:10px; border-radius:10px; border:2px solid transparent;
     cursor:pointer; font-size:13px; font-weight:700; transition:0.2s;
-    text-align:center; background:rgba(50,20,80,0.4);
+    text-align:center; background:var(--surface2);
   }
   .rsvp-btn:hover { transform:translateY(-1px); }
-  .rsvp-btn.going { color:var(--going); border-color:rgba(16,185,129,0.3); }
-  .rsvp-btn.going.active { background:var(--going); color:#fff; border-color:var(--going); box-shadow:0 4px 15px rgba(16,185,129,0.3); }
-  .rsvp-btn.maybe { color:var(--maybe); border-color:rgba(245,158,11,0.3); }
-  .rsvp-btn.maybe.active { background:var(--maybe); color:#fff; border-color:var(--maybe); box-shadow:0 4px 15px rgba(245,158,11,0.3); }
-  .rsvp-btn.cant { color:var(--cant); border-color:rgba(239,68,68,0.3); }
-  .rsvp-btn.cant.active { background:var(--cant); color:#fff; border-color:var(--cant); box-shadow:0 4px 15px rgba(239,68,68,0.3); }
+  .rsvp-btn.going { color:var(--going); border-color:rgba(39,174,96,0.25); }
+  .rsvp-btn.going.active { background:var(--going); color:#fff; border-color:var(--going); }
+  .rsvp-btn.maybe { color:var(--maybe); border-color:rgba(212,160,23,0.25); }
+  .rsvp-btn.maybe.active { background:var(--gold); color:var(--charcoal); border-color:var(--gold-dark); }
+  .rsvp-btn.cant { color:var(--cant); border-color:rgba(192,57,43,0.25); }
+  .rsvp-btn.cant.active { background:var(--cant); color:#fff; border-color:var(--cant); }
 
   .rsvp-summary { display:flex; flex-direction:column; gap:8px; }
   .rsvp-group { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
@@ -256,34 +323,39 @@
     font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px;
     padding:3px 10px; border-radius:8px; min-width:60px; text-align:center;
   }
-  .rsvp-group-label.going-label { background:rgba(16,185,129,0.15); color:var(--going); }
-  .rsvp-group-label.maybe-label { background:rgba(245,158,11,0.15); color:var(--maybe); }
-  .rsvp-group-label.cant-label { background:rgba(239,68,68,0.15); color:var(--cant); }
-  .rsvp-group-label.pending-label { background:rgba(167,139,218,0.15); color:var(--text2); }
+  .rsvp-group-label.going-label { background:rgba(39,174,96,0.1); color:var(--going); }
+  .rsvp-group-label.maybe-label { background:rgba(230,214,168,0.4); color:var(--warning); }
+  .rsvp-group-label.cant-label { background:rgba(192,57,43,0.1); color:var(--cant); }
+  .rsvp-group-label.pending-label { background:var(--surface3); color:var(--text2); }
   .rsvp-person {
     display:flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px;
-    font-size:12px; background:rgba(50,20,80,0.5);
+    font-size:12px; background:var(--surface2); color:var(--charcoal);
   }
   .rsvp-person .rp-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
   .color-options { display:flex; gap:8px; }
   .color-opt {
-    width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:0.2s;
+    width:28px; height:28px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:0.2s;
   }
-  .color-opt:hover, .color-opt.selected { border-color:#fff; transform:scale(1.15); }
+  .color-opt:hover, .color-opt.selected { border-color:var(--royal); transform:scale(1.15); }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width:6px; }
   ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:rgba(168,85,247,0.3); border-radius:3px; }
+  ::-webkit-scrollbar-thumb { background:rgba(67,33,95,0.2); border-radius:3px; }
 
-  /* Mobile */
+  .loading-spinner {
+    display:flex; align-items:center; justify-content:center; padding:40px;
+    color:var(--text2); font-size:14px; gap:10px;
+  }
+  .spinner { width:20px; height:20px; border:3px solid var(--surface3); border-top-color:var(--royal); border-radius:50%; animation:spin 0.6s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
   @media(max-width:768px) {
     .menu-btn { display:flex; }
     .sidebar {
       position:fixed; top:0; left:0; bottom:0; width:300px; z-index:600;
       transform:translateX(-100%); transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);
-      background:rgba(15,5,30,0.95); backdrop-filter:blur(20px);
+      box-shadow: 4px 0 30px rgba(67,33,95,0.2);
     }
     .sidebar.open { transform:translateX(0); }
     .sidebar-close { display:block; }
@@ -295,6 +367,7 @@
     .cal-header h2 { font-size:20px; }
     .logo h1 { font-size:18px; }
     .logo-icon { width:36px; height:36px; font-size:17px; }
+    .header-code { display:none; }
   }
   @media(max-width:420px) {
     .cal-day { min-height:55px; }
@@ -307,51 +380,96 @@
 
 <div id="toast-container"></div>
 
-<header>
-  <div class="header-left">
-    <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
-    <div class="logo">
-      <div class="logo-icon">📅</div>
-      <h1>Connect Friends</h1>
+<!-- WELCOME SCREEN -->
+<div id="welcomeScreen" class="welcome-screen">
+  <div class="welcome-card" id="welcomeCard">
+    <div class="welcome-logo">📅</div>
+    <h1>Connect Friends</h1>
+    <p>Create a shared calendar with friends.<br>Everyone uses the same code to stay in sync.</p>
+
+    <!-- Step 1: Choose create or join -->
+    <div id="stepChoice">
+      <input class="welcome-input" id="yourName" placeholder="Your name" maxlength="20">
+      <button class="welcome-btn welcome-btn-primary" onclick="startCreate()">Create New Calendar</button>
+      <div class="welcome-divider">or</div>
+      <button class="welcome-btn welcome-btn-gold" onclick="showJoin()">Join with Code</button>
+    </div>
+
+    <!-- Step 2a: Created — show code -->
+    <div id="stepCreated" style="display:none">
+      <p style="margin-bottom:12px">Your calendar code is:</p>
+      <div class="welcome-code" id="newCode"></div>
+      <p class="welcome-small">Share this code with your friends so they can join!</p>
+      <button class="welcome-btn welcome-btn-primary" style="margin-top:20px" onclick="enterCalendar()">Enter Calendar</button>
+    </div>
+
+    <!-- Step 2b: Join -->
+    <div id="stepJoin" style="display:none">
+      <input class="welcome-input" id="joinCode" placeholder="Enter 6-digit code" maxlength="6" style="text-align:center;font-size:20px;letter-spacing:4px;font-family:monospace">
+      <div class="welcome-error" id="joinError">Calendar not found. Check your code.</div>
+      <button class="welcome-btn welcome-btn-primary" onclick="joinCalendar()">Join Calendar</button>
+      <button class="welcome-back-btn" onclick="showChoice()">← Back</button>
     </div>
   </div>
-  <div class="user-area">
-    <select class="user-select" id="currentUser"></select>
-    <button class="notification-bell" id="bellBtn" onclick="toggleNotifPanel()">
-      🔔<span class="badge" id="notifBadge" style="display:none">0</span>
-    </button>
-  </div>
-</header>
+</div>
 
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-<div class="app">
-  <div class="sidebar" id="sidebar">
-    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
-    <div>
-      <div class="section-title">Members</div>
-      <div class="member-list" id="memberList"></div>
-      <div class="add-member-input">
-        <input type="text" id="newMemberName" placeholder="Add member..." onkeydown="if(event.key==='Enter')addMember()">
-        <button onclick="addMember()">+</button>
+<!-- MAIN APP (hidden initially) -->
+<div id="appContainer" style="display:none">
+  <header>
+    <div class="header-left">
+      <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+      <div class="logo">
+        <div class="logo-icon">📅</div>
+        <h1>Connect Friends</h1>
       </div>
     </div>
-    <div>
-      <div class="section-title">Upcoming Together</div>
-      <div id="upcomingEvents"></div>
+    <div class="user-area">
+      <div class="header-code" id="headerCode" onclick="copyCode()" title="Click to copy code"></div>
+      <select class="user-select" id="currentUser"></select>
+      <button class="notification-bell" onclick="toggleNotifPanel()">
+        🔔
+      </button>
+      <button class="leave-btn" onclick="leaveCalendar()">Leave</button>
     </div>
-  </div>
+  </header>
 
-  <div class="main">
-    <div class="cal-header">
-      <h2 id="calTitle"></h2>
-      <div class="cal-nav">
-        <button onclick="changeMonth(-1)">◀</button>
-        <button onclick="goToday()">●</button>
-        <button onclick="changeMonth(1)">▶</button>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <div class="app">
+    <div class="sidebar" id="sidebar">
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+      <div>
+        <div class="share-box">
+          <div class="share-label">CALENDAR CODE</div>
+          <div class="share-code" id="sidebarCode" onclick="copyCode()"></div>
+          <div class="share-hint">Click to copy · Share with friends</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title">Members</div>
+        <div class="member-list" id="memberList"></div>
+        <div class="add-member-input">
+          <input type="text" id="newMemberName" placeholder="Add member..." onkeydown="if(event.key==='Enter')addMember()">
+          <button onclick="addMember()">+</button>
+        </div>
+      </div>
+      <div>
+        <div class="section-title">Upcoming Together</div>
+        <div id="upcomingEvents"></div>
       </div>
     </div>
-    <div class="cal-grid" id="calGrid"></div>
+
+    <div class="main">
+      <div class="cal-header">
+        <h2 id="calTitle"></h2>
+        <div class="cal-nav">
+          <button onclick="changeMonth(-1)">◀</button>
+          <button onclick="goToday()">●</button>
+          <button onclick="changeMonth(1)">▶</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
   </div>
 </div>
 
@@ -359,32 +477,16 @@
 <div class="modal-overlay" id="eventModal">
   <div class="modal">
     <h3 id="modalTitle">New Event</h3>
-    <div class="form-group">
-      <label>Event Title</label>
-      <input type="text" id="evTitle" placeholder="e.g. Team Standup">
-    </div>
-    <div class="form-group">
-      <label>Date</label>
-      <input type="date" id="evDate">
-    </div>
+    <div class="form-group"><label>Event Title</label><input type="text" id="evTitle" placeholder="e.g. Team Standup"></div>
+    <div class="form-group"><label>Date</label><input type="date" id="evDate"></div>
     <div class="form-group" style="display:flex;gap:10px">
       <div style="flex:1"><label>Start Time</label><input type="time" id="evStart" value="09:00"></div>
       <div style="flex:1"><label>End Time</label><input type="time" id="evEnd" value="10:00"></div>
     </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea id="evDesc" placeholder="Optional details..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>People</label>
-      <div class="people-checkboxes" id="evPeople"></div>
-    </div>
-    <div class="form-group">
-      <label>Color</label>
-      <div class="color-options" id="evColor"></div>
-    </div>
-    <div class="form-group">
-      <label>Reminder</label>
+    <div class="form-group"><label>Description</label><textarea id="evDesc" placeholder="Optional details..."></textarea></div>
+    <div class="form-group"><label>People</label><div class="people-checkboxes" id="evPeople"></div></div>
+    <div class="form-group"><label>Color</label><div class="color-options" id="evColor"></div></div>
+    <div class="form-group"><label>Reminder</label>
       <div class="reminder-options">
         <label><input type="radio" name="reminder" value="0" checked>None</label>
         <label><input type="radio" name="reminder" value="5">5 min</label>
@@ -411,7 +513,6 @@
     <div class="event-detail-time" id="detTime"></div>
     <div class="event-detail-desc" id="detDesc"></div>
     <div class="event-detail-reminder" id="detReminder"></div>
-
     <div class="rsvp-section">
       <div class="section-title" style="margin-bottom:10px">Your RSVP</div>
       <div class="rsvp-buttons" id="rsvpButtons">
@@ -422,7 +523,6 @@
       <div class="section-title" style="margin-bottom:8px">Responses</div>
       <div class="rsvp-summary" id="rsvpSummary"></div>
     </div>
-
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeDetail()">Close</button>
       <button class="btn btn-primary" onclick="editFromDetail()">Edit</button>
@@ -431,35 +531,138 @@
 </div>
 
 <script>
-const COLORS = ['#a855f7','#ef4444','#10b981','#f59e0b','#3b82f6','#ec4899','#06b6d4','#8b5cf6'];
-const MEMBER_COLORS = ['#a855f7','#3b82f6','#10b981','#f59e0b','#ef4444','#ec4899','#06b6d4','#8b5cf6'];
+const COLORS = ['#43215F','#5a3478','#C0392B','#27AE60','#2980B9','#D4A017','#E67E22','#8E44AD'];
+const MEMBER_COLORS = ['#43215F','#2980B9','#27AE60','#D4A017','#C0392B','#E67E22','#8E44AD','#5a3478'];
+const STORAGE = window.storage;
 
-let members = [
-  {id:1, name:'Alice', color:MEMBER_COLORS[0]},
-  {id:2, name:'Bob', color:MEMBER_COLORS[1]},
-  {id:3, name:'Carol', color:MEMBER_COLORS[2]},
-];
-let nextMemberId = 4;
-let currentUserId = 1;
-
-const today = new Date();
-const y = today.getFullYear(), m = today.getMonth(), d = today.getDate();
-
-let events = [
-  {id:1, title:'Team Standup', date:fmt(y,m,d), start:'09:00', end:'09:30', desc:'Daily sync', people:[1,2,3], color:'#a855f7', reminder:15, rsvp:{1:'going',2:'going',3:'maybe'}},
-  {id:2, title:'Design Review', date:fmt(y,m,d+1), start:'14:00', end:'15:00', desc:'Review new mockups', people:[1,3], color:'#3b82f6', reminder:30, rsvp:{1:'going',3:'going'}},
-  {id:3, title:'Lunch Together', date:fmt(y,m,d+2), start:'12:00', end:'13:00', desc:'Team lunch at the new place', people:[1,2], color:'#10b981', reminder:60, rsvp:{1:'maybe',2:'going'}},
-  {id:4, title:'Sprint Planning', date:fmt(y,m,d+3), start:'10:00', end:'11:30', desc:'Plan next sprint', people:[1,2,3], color:'#f59e0b', reminder:15, rsvp:{1:'going',2:'cant',3:'going'}},
-];
-let nextEventId = 5;
+let calCode = '';
+let calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
+let currentUserId = null;
+let currentUserName = '';
 let editingEventId = null;
-let viewMonth = m, viewYear = y;
+let viewMonth, viewYear;
 let selectedColor = COLORS[0];
 let currentDetailEventId = null;
 
+const today = new Date();
+viewMonth = today.getMonth();
+viewYear = today.getFullYear();
+
+function genCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for(let i=0;i<6;i++) c += chars[Math.floor(Math.random()*chars.length)];
+  return c;
+}
+
 function fmt(y,m,d) { return new Date(y,m,d).toISOString().split('T')[0]; }
 
-// Sidebar toggle
+// --- Storage helpers ---
+async function saveCalendar() {
+  try {
+    await STORAGE.set('cal-' + calCode, JSON.stringify(calData), true);
+  } catch(e) { console.error('Save failed:', e); }
+}
+
+async function loadCalendar(code) {
+  try {
+    const r = await STORAGE.get('cal-' + code, true);
+    if(r && r.value) {
+      calData = JSON.parse(r.value);
+      return true;
+    }
+  } catch(e) { console.log('Not found'); }
+  return false;
+}
+
+// --- Welcome screen ---
+function showJoin() {
+  document.getElementById('stepChoice').style.display = 'none';
+  document.getElementById('stepJoin').style.display = '';
+  document.getElementById('joinCode').focus();
+}
+function showChoice() {
+  document.getElementById('stepChoice').style.display = '';
+  document.getElementById('stepJoin').style.display = 'none';
+  document.getElementById('stepCreated').style.display = 'none';
+  document.getElementById('joinError').style.display = 'none';
+}
+
+async function startCreate() {
+  const name = document.getElementById('yourName').value.trim();
+  if(!name) { document.getElementById('yourName').focus(); showToast('Enter Your Name','Please type your name first'); return; }
+  currentUserName = name;
+  calCode = genCode();
+  calData = {
+    members:[{id:1, name:name, color:MEMBER_COLORS[0]}],
+    events:[], nextMemberId:2, nextEventId:1
+  };
+  currentUserId = 1;
+  await saveCalendar();
+
+  document.getElementById('newCode').textContent = calCode;
+  document.getElementById('stepChoice').style.display = 'none';
+  document.getElementById('stepCreated').style.display = '';
+}
+
+async function joinCalendar() {
+  const name = document.getElementById('yourName').value.trim();
+  if(!name) { showChoice(); document.getElementById('yourName').focus(); showToast('Enter Your Name','Go back and type your name first'); return; }
+  currentUserName = name;
+  const code = document.getElementById('joinCode').value.trim().toUpperCase();
+  if(code.length !== 6) { document.getElementById('joinError').textContent='Please enter a 6-digit code'; document.getElementById('joinError').style.display=''; return; }
+
+  const found = await loadCalendar(code);
+  if(!found) {
+    document.getElementById('joinError').textContent = 'Calendar not found. Check your code.';
+    document.getElementById('joinError').style.display = '';
+    return;
+  }
+  calCode = code;
+
+  // Check if already a member
+  const existing = calData.members.find(m => m.name.toLowerCase() === name.toLowerCase());
+  if(existing) {
+    currentUserId = existing.id;
+  } else {
+    const newId = calData.nextMemberId++;
+    calData.members.push({id:newId, name:name, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
+    currentUserId = newId;
+    await saveCalendar();
+  }
+  enterCalendar();
+}
+
+function enterCalendar() {
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('appContainer').style.display = '';
+  document.getElementById('headerCode').textContent = calCode;
+  document.getElementById('sidebarCode').textContent = calCode;
+  renderAll();
+  scheduleReminders();
+  showToast('Welcome! 👋', `You're in calendar ${calCode}`);
+}
+
+function leaveCalendar() {
+  if(confirm('Leave this calendar? You can rejoin with the code: ' + calCode)) {
+    document.getElementById('appContainer').style.display = 'none';
+    document.getElementById('welcomeScreen').style.display = '';
+    showChoice();
+    calCode = '';
+    calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
+    currentUserId = null;
+  }
+}
+
+function copyCode() {
+  navigator.clipboard.writeText(calCode).then(() => {
+    showToast('Code Copied!', `${calCode} copied to clipboard`);
+  }).catch(() => {
+    showToast('Calendar Code', calCode);
+  });
+}
+
+// --- Sidebar ---
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -481,46 +684,51 @@ function showToast(title, msg, isReminder) {
 function renderMembers() {
   const ml = document.getElementById('memberList');
   const us = document.getElementById('currentUser');
-  ml.innerHTML = members.map(m => `
+  ml.innerHTML = calData.members.length ? calData.members.map(m => `
     <div class="member">
       <div class="member-avatar" style="background:${m.color}">${m.name[0]}</div>
       <div><div class="member-name">${m.name}</div><div class="member-status">${m.id===currentUserId?'You':'Member'}</div></div>
-    </div>`).join('');
-  us.innerHTML = members.map(m => `<option value="${m.id}" ${m.id===currentUserId?'selected':''}>${m.name}</option>`).join('');
-  us.onchange = e => { currentUserId = +e.target.value; renderAll(); };
+    </div>`).join('') : '<p style="font-size:13px;color:var(--text2)">No members yet</p>';
+  us.innerHTML = calData.members.map(m => `<option value="${m.id}" ${m.id===currentUserId?'selected':''}>${m.name}</option>`).join('');
+  us.onchange = e => { if(e.target.value) { currentUserId = +e.target.value; renderAll(); } };
 }
 
-function addMember() {
+async function addMember() {
   const inp = document.getElementById('newMemberName');
   const n = inp.value.trim();
   if(!n) return;
-  members.push({id:nextMemberId++, name:n, color:MEMBER_COLORS[(members.length)%MEMBER_COLORS.length]});
+  // Reload latest data first
+  await loadCalendar(calCode);
+  const newId = calData.nextMemberId++;
+  calData.members.push({id:newId, name:n, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
+  await saveCalendar();
   inp.value = '';
-  renderMembers();
+  renderAll();
   showToast('Member Added', `${n} joined the calendar!`);
 }
 
 function renderUpcoming() {
+  if(!currentUserId) { document.getElementById('upcomingEvents').innerHTML=''; return; }
   const now = new Date();
-  const upcoming = events
+  const upcoming = calData.events
     .filter(e => e.people.length > 1 && e.people.includes(currentUserId))
     .filter(e => new Date(e.date+'T'+e.start) >= new Date(now.toDateString()))
     .sort((a,b) => new Date(a.date+'T'+a.start) - new Date(b.date+'T'+b.start))
     .slice(0,5);
   document.getElementById('upcomingEvents').innerHTML = upcoming.length ? upcoming.map(e => {
-    const ppl = e.people.map(pid => members.find(m=>m.id===pid)?.name).filter(Boolean);
+    const ppl = e.people.map(pid => calData.members.find(m=>m.id===pid)?.name).filter(Boolean);
     const goingC = e.people.filter(pid => e.rsvp[pid]==='going').length;
     const maybeC = e.people.filter(pid => e.rsvp[pid]==='maybe').length;
     const cantC = e.people.filter(pid => e.rsvp[pid]==='cant').length;
     const dt = new Date(e.date+'T'+e.start);
     return `<div class="upcoming-event" onclick="showDetail(${e.id})" style="border-left-color:${e.color}">
       <div class="ue-title">${e.title}</div>
-      <div class="ue-time">${dt.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'})} · ${e.start} - ${e.end}</div>
+      <div class="ue-time">${dt.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'})} · ${e.start}-${e.end}</div>
       <div class="ue-people">👥 ${ppl.join(', ')}</div>
       <div class="ue-rsvp">
-        ${goingC?`<span class="ue-rsvp-tag" style="background:rgba(16,185,129,0.15);color:var(--going)">✓${goingC}</span>`:''}
-        ${maybeC?`<span class="ue-rsvp-tag" style="background:rgba(245,158,11,0.15);color:var(--maybe)">?${maybeC}</span>`:''}
-        ${cantC?`<span class="ue-rsvp-tag" style="background:rgba(239,68,68,0.15);color:var(--cant)">✕${cantC}</span>`:''}
+        ${goingC?`<span class="ue-rsvp-tag" style="background:rgba(39,174,96,0.1);color:var(--going)">✓${goingC}</span>`:''}
+        ${maybeC?`<span class="ue-rsvp-tag" style="background:rgba(230,214,168,0.4);color:var(--warning)">?${maybeC}</span>`:''}
+        ${cantC?`<span class="ue-rsvp-tag" style="background:rgba(192,57,43,0.1);color:var(--cant)">✕${cantC}</span>`:''}
       </div>
     </div>`;
   }).join('') : '<p style="font-size:13px;color:var(--text2)">No upcoming group events</p>';
@@ -537,35 +745,30 @@ function renderCalendar() {
   const startDay = first.getDay();
   const prevLast = new Date(viewYear, viewMonth, 0).getDate();
 
-  for(let i = startDay-1; i >= 0; i--) {
-    html += calDayHTML(prevLast-i, fmt(viewYear, viewMonth-1, prevLast-i), true);
-  }
+  for(let i = startDay-1; i >= 0; i--) html += calDayHTML(prevLast-i, fmt(viewYear,viewMonth-1,prevLast-i), true);
   for(let i = 1; i <= last.getDate(); i++) {
-    const dt = fmt(viewYear, viewMonth, i);
+    const dt = fmt(viewYear,viewMonth,i);
     const isToday = i===today.getDate() && viewMonth===today.getMonth() && viewYear===today.getFullYear();
     html += calDayHTML(i, dt, false, isToday);
   }
-  const totalCells = startDay + last.getDate();
-  const remaining = (7 - totalCells % 7) % 7;
-  for(let i = 1; i <= remaining; i++) {
-    html += calDayHTML(i, fmt(viewYear, viewMonth+1, i), true);
-  }
+  const rem = (7 - (startDay+last.getDate())%7)%7;
+  for(let i=1;i<=rem;i++) html += calDayHTML(i, fmt(viewYear,viewMonth+1,i), true);
   grid.innerHTML = html;
 }
 
 function calDayHTML(dayNum, dateStr, otherMonth, isToday) {
-  const dayEvents = events.filter(e => e.date === dateStr).slice(0,3);
+  const dayEvents = calData.events.filter(e => e.date === dateStr).slice(0,3);
   const cls = ['cal-day'];
   if(otherMonth) cls.push('other-month');
   if(isToday) cls.push('today');
   return `<div class="${cls.join(' ')}" onclick="openModal('${dateStr}')">
     <div class="day-num">${dayNum}</div>
     ${dayEvents.map(e => {
-      const myRsvp = e.rsvp[currentUserId];
-      const rsvpDot = myRsvp==='going'?'✓':myRsvp==='maybe'?'?':myRsvp==='cant'?'✕':'';
-      return `<div class="cal-event" style="background:${e.color}" onclick="event.stopPropagation();showDetail(${e.id})" title="${e.title}">${rsvpDot?rsvpDot+' ':''}${e.title}</div>`;
+      const myRsvp = currentUserId ? e.rsvp[currentUserId] : null;
+      const rd = myRsvp==='going'?'✓':myRsvp==='maybe'?'?':myRsvp==='cant'?'✕':'';
+      return `<div class="cal-event" style="background:${e.color}" onclick="event.stopPropagation();showDetail(${e.id})">${rd?rd+' ':''}${e.title}</div>`;
     }).join('')}
-    ${events.filter(e=>e.date===dateStr).length>3?`<div style="font-size:10px;color:var(--text2)">+${events.filter(e=>e.date===dateStr).length-3} more</div>`:''}
+    ${calData.events.filter(e=>e.date===dateStr).length>3?`<div style="font-size:10px;color:var(--text2)">+${calData.events.filter(e=>e.date===dateStr).length-3} more</div>`:''}
   </div>`;
 }
 
@@ -573,6 +776,7 @@ function changeMonth(delta) { viewMonth+=delta; if(viewMonth>11){viewMonth=0;vie
 function goToday() { viewMonth=today.getMonth(); viewYear=today.getFullYear(); renderCalendar(); }
 
 function openModal(dateStr) {
+  if(!calData.members.length) { showToast('Add Members First','Add at least one member'); return; }
   editingEventId = null;
   document.getElementById('modalTitle').textContent = 'New Event';
   document.getElementById('deleteBtn').style.display = 'none';
@@ -584,7 +788,7 @@ function openModal(dateStr) {
   document.querySelector('input[name="reminder"][value="0"]').checked = true;
   selectedColor = COLORS[0];
   renderColorPicker();
-  renderPeopleCheckboxes([currentUserId]);
+  renderPeopleCheckboxes(currentUserId ? [currentUserId] : []);
   document.getElementById('eventModal').classList.add('active');
 }
 
@@ -593,16 +797,14 @@ function renderColorPicker() {
     `<div class="color-opt ${c===selectedColor?'selected':''}" style="background:${c}" onclick="selectedColor='${c}';renderColorPicker()"></div>`
   ).join('');
 }
-
 function renderPeopleCheckboxes(selected) {
-  document.getElementById('evPeople').innerHTML = members.map(m =>
+  document.getElementById('evPeople').innerHTML = calData.members.map(m =>
     `<label><input type="checkbox" value="${m.id}" ${selected.includes(m.id)?'checked':''}>${m.name}</label>`
   ).join('');
 }
-
 function closeModal() { document.getElementById('eventModal').classList.remove('active'); }
 
-function saveEvent() {
+async function saveEvent() {
   const title = document.getElementById('evTitle').value.trim();
   const date = document.getElementById('evDate').value;
   const start = document.getElementById('evStart').value;
@@ -611,43 +813,44 @@ function saveEvent() {
   const people = [...document.querySelectorAll('#evPeople input:checked')].map(i=>+i.value);
   const reminder = +document.querySelector('input[name="reminder"]:checked').value;
 
-  if(!title || !date) { showToast('Error','Please fill in title and date'); return; }
-  if(people.length === 0) { showToast('Error','Select at least one person'); return; }
+  if(!title||!date) { showToast('Error','Please fill in title and date'); return; }
+  if(!people.length) { showToast('Error','Select at least one person'); return; }
+
+  await loadCalendar(calCode);
 
   if(editingEventId) {
-    const ev = events.find(e=>e.id===editingEventId);
-    const newRsvp = {...ev.rsvp};
-    people.forEach(pid => { if(!newRsvp[pid]) newRsvp[pid] = null; });
-    Object.keys(newRsvp).forEach(pid => { if(!people.includes(+pid)) delete newRsvp[pid]; });
-    Object.assign(ev, {title,date,start,end,desc,people,color:selectedColor,reminder,rsvp:newRsvp});
-    showToast('Event Updated', `"${title}" has been updated`);
+    const ev = calData.events.find(e=>e.id===editingEventId);
+    if(ev) {
+      const newRsvp = {...ev.rsvp};
+      people.forEach(pid => { if(!newRsvp[pid]) newRsvp[pid] = null; });
+      Object.keys(newRsvp).forEach(pid => { if(!people.includes(+pid)) delete newRsvp[pid]; });
+      Object.assign(ev, {title,date,start,end,desc,people,color:selectedColor,reminder,rsvp:newRsvp});
+    }
+    showToast('Event Updated', `"${title}" updated`);
   } else {
     const rsvp = {};
     people.forEach(pid => { rsvp[pid] = pid===currentUserId ? 'going' : null; });
-    events.push({id:nextEventId++, title, date, start, end, desc, people, color:selectedColor, reminder, rsvp});
-    if(people.length > 1) {
-      const names = people.map(pid=>members.find(m=>m.id===pid)?.name).filter(Boolean).join(', ');
-      showToast('Group Event Created!', `"${title}" with ${names} — awaiting RSVPs`);
-    } else {
-      showToast('Event Created', `"${title}" added to calendar`);
-    }
+    calData.events.push({id:calData.nextEventId++, title, date, start, end, desc, people, color:selectedColor, reminder, rsvp});
+    showToast('Event Created', `"${title}" added`);
   }
+  await saveCalendar();
   closeModal();
   renderAll();
-  scheduleReminders();
 }
 
-function deleteEvent() {
+async function deleteEvent() {
   if(!editingEventId) return;
-  const ev = events.find(e=>e.id===editingEventId);
-  events = events.filter(e=>e.id!==editingEventId);
-  showToast('Event Deleted', `"${ev.title}" removed`);
+  await loadCalendar(calCode);
+  const ev = calData.events.find(e=>e.id===editingEventId);
+  calData.events = calData.events.filter(e=>e.id!==editingEventId);
+  await saveCalendar();
+  showToast('Event Deleted', `"${ev?.title}" removed`);
   closeModal();
   renderAll();
 }
 
 function showDetail(id) {
-  const ev = events.find(e=>e.id===id);
+  const ev = calData.events.find(e=>e.id===id);
   if(!ev) return;
   currentDetailEventId = id;
   document.getElementById('detColor').style.background = ev.color;
@@ -656,19 +859,14 @@ function showDetail(id) {
   document.getElementById('detDesc').textContent = ev.desc || 'No description';
   document.getElementById('detReminder').textContent = ev.reminder ? `⏰ Reminder: ${ev.reminder} min before` : '';
 
-  const myRsvp = ev.rsvp[currentUserId];
-  const isInvited = ev.people.includes(currentUserId);
+  const myRsvp = currentUserId ? ev.rsvp[currentUserId] : null;
+  const isInvited = currentUserId && ev.people.includes(currentUserId);
   const btns = document.getElementById('rsvpButtons');
   if(isInvited) {
     btns.style.display = 'flex';
     btns.querySelectorAll('.rsvp-btn').forEach(b => b.classList.remove('active'));
-    if(myRsvp) {
-      const activeBtn = btns.querySelector(`.rsvp-btn.${myRsvp}`);
-      if(activeBtn) activeBtn.classList.add('active');
-    }
-  } else {
-    btns.style.display = 'none';
-  }
+    if(myRsvp) { const a = btns.querySelector(`.rsvp-btn.${myRsvp}`); if(a) a.classList.add('active'); }
+  } else { btns.style.display = 'none'; }
   renderRSVPSummary(ev);
   document.getElementById('detailModal').classList.add('active');
 }
@@ -676,48 +874,46 @@ function showDetail(id) {
 function renderRSVPSummary(ev) {
   const groups = {going:[], maybe:[], cant:[], pending:[]};
   ev.people.forEach(pid => {
-    const m = members.find(mm=>mm.id===pid);
+    const m = calData.members.find(mm=>mm.id===pid);
     if(!m) return;
-    const s = ev.rsvp[pid];
-    (groups[s] || groups.pending).push(m);
+    (groups[ev.rsvp[pid]] || groups.pending).push(m);
   });
   let html = '';
-  const renderGroup = (label, cls, arr) => {
+  const rg = (label, cls, arr) => {
     if(!arr.length) return '';
-    return `<div class="rsvp-group">
-      <span class="rsvp-group-label ${cls}">${label} (${arr.length})</span>
-      ${arr.map(m => `<span class="rsvp-person"><span class="rp-dot" style="background:${m.color}"></span>${m.name}</span>`).join('')}
-    </div>`;
+    return `<div class="rsvp-group"><span class="rsvp-group-label ${cls}">${label} (${arr.length})</span>${arr.map(m=>`<span class="rsvp-person"><span class="rp-dot" style="background:${m.color}"></span>${m.name}</span>`).join('')}</div>`;
   };
-  html += renderGroup('Going', 'going-label', groups.going);
-  html += renderGroup('Maybe', 'maybe-label', groups.maybe);
-  html += renderGroup("Can't", 'cant-label', groups.cant);
-  html += renderGroup('Pending', 'pending-label', groups.pending);
+  html += rg('Going','going-label',groups.going);
+  html += rg('Maybe','maybe-label',groups.maybe);
+  html += rg("Can't",'cant-label',groups.cant);
+  html += rg('Pending','pending-label',groups.pending);
   document.getElementById('rsvpSummary').innerHTML = html;
 }
 
-function setRSVP(status) {
-  if(!currentDetailEventId) return;
-  const ev = events.find(e=>e.id===currentDetailEventId);
-  if(!ev || !ev.people.includes(currentUserId)) return;
+async function setRSVP(status) {
+  if(!currentDetailEventId||!currentUserId) return;
+  await loadCalendar(calCode);
+  const ev = calData.events.find(e=>e.id===currentDetailEventId);
+  if(!ev||!ev.people.includes(currentUserId)) return;
   ev.rsvp[currentUserId] = status;
-  document.querySelectorAll('#rsvpButtons .rsvp-btn').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.querySelector(`#rsvpButtons .rsvp-btn.${status}`);
-  if(activeBtn) activeBtn.classList.add('active');
+  await saveCalendar();
+  document.querySelectorAll('#rsvpButtons .rsvp-btn').forEach(b=>b.classList.remove('active'));
+  const a = document.querySelector(`#rsvpButtons .rsvp-btn.${status}`);
+  if(a) a.classList.add('active');
   renderRSVPSummary(ev);
   renderCalendar();
   renderUpcoming();
-  const userName = members.find(m=>m.id===currentUserId)?.name;
-  const statusText = status==='going'?'Going ✓':status==='maybe'?'Maybe ?':"Can't ✕";
-  showToast('RSVP Updated', `${userName} → ${statusText} for "${ev.title}"`);
+  const un = calData.members.find(m=>m.id===currentUserId)?.name;
+  const st = status==='going'?'Going ✓':status==='maybe'?'Maybe ?':"Can't ✕";
+  showToast('RSVP Updated', `${un} → ${st}`);
 }
 
-function closeDetail() { document.getElementById('detailModal').classList.remove('active'); currentDetailEventId = null; }
+function closeDetail() { document.getElementById('detailModal').classList.remove('active'); currentDetailEventId=null; }
 
 function editFromDetail() {
   const id = currentDetailEventId;
   closeDetail();
-  const ev = events.find(e=>e.id===id);
+  const ev = calData.events.find(e=>e.id===id);
   if(!ev) return;
   editingEventId = id;
   document.getElementById('modalTitle').textContent = 'Edit Event';
@@ -730,72 +926,58 @@ function editFromDetail() {
   selectedColor = ev.color;
   renderColorPicker();
   renderPeopleCheckboxes(ev.people);
-  const rInput = document.querySelector(`input[name="reminder"][value="${ev.reminder}"]`);
-  if(rInput) rInput.checked = true;
+  const ri = document.querySelector(`input[name="reminder"][value="${ev.reminder}"]`);
+  if(ri) ri.checked = true;
   document.getElementById('eventModal').classList.add('active');
 }
 
 function toggleNotifPanel() {
-  const pendingRsvp = events.filter(e => e.people.includes(currentUserId) && !e.rsvp[currentUserId]);
-  pendingRsvp.forEach(e => {
-    showToast('RSVP Needed', `You haven't responded to "${e.title}"`, true);
-  });
-  const upcoming = events
-    .filter(e => e.people.length > 1 && e.people.includes(currentUserId))
-    .sort((a,b) => new Date(a.date+'T'+a.start) - new Date(b.date+'T'+b.start))
-    .slice(0,3);
-  if(upcoming.length && !pendingRsvp.length) {
-    upcoming.forEach(e => {
-      const ppl = e.people.filter(p=>p!==currentUserId).map(pid=>members.find(m=>m.id===pid)?.name).join(', ');
-      const goingC = e.people.filter(pid => e.rsvp[pid]==='going').length;
-      showToast(`${e.title}`, `${e.date} at ${e.start} with ${ppl} · ${goingC} going`, true);
+  if(!currentUserId) return;
+  const pending = calData.events.filter(e=>e.people.includes(currentUserId)&&!e.rsvp[currentUserId]);
+  pending.forEach(e => showToast('RSVP Needed',`Respond to "${e.title}"`,true));
+  if(!pending.length) {
+    const upcoming = calData.events.filter(e=>e.people.length>1&&e.people.includes(currentUserId)).slice(0,3);
+    if(upcoming.length) upcoming.forEach(e => {
+      const ppl = e.people.filter(p=>p!==currentUserId).map(pid=>calData.members.find(m=>m.id===pid)?.name).join(', ');
+      showToast(e.title, `${e.date} at ${e.start} with ${ppl}`, true);
     });
-  }
-  if(!upcoming.length && !pendingRsvp.length) {
-    showToast('All Clear', 'No pending RSVPs or upcoming group events');
+    else showToast('All Clear','No pending RSVPs or upcoming events');
   }
 }
 
 let reminderTimers = [];
 function scheduleReminders() {
-  reminderTimers.forEach(t => clearTimeout(t));
+  reminderTimers.forEach(t=>clearTimeout(t));
   reminderTimers = [];
+  if(!currentUserId) return;
   const now = new Date();
-  events.forEach(ev => {
-    if(!ev.reminder || !ev.people.includes(currentUserId) || ev.people.length < 2) return;
+  calData.events.forEach(ev => {
+    if(!ev.reminder||!ev.people.includes(currentUserId)||ev.people.length<2) return;
     if(ev.rsvp[currentUserId]==='cant') return;
-    const evTime = new Date(ev.date+'T'+ev.start);
-    const reminderTime = new Date(evTime.getTime() - ev.reminder * 60000);
-    const diff = reminderTime - now;
-    if(diff > 0 && diff < 86400000) {
-      const t = setTimeout(() => {
-        const ppl = ev.people.filter(p=>p!==currentUserId).map(pid=>members.find(m=>m.id===pid)?.name).join(', ');
-        showToast(`⏰ ${ev.title}`, `Starting in ${ev.reminder} min with ${ppl}`, true);
-        if('Notification' in window && Notification.permission === 'granted') {
-          new Notification(`Connect Friends: ${ev.title}`, {body:`Starting in ${ev.reminder} min with ${ppl}`});
-        }
-      }, diff);
-      reminderTimers.push(t);
+    const diff = new Date(ev.date+'T'+ev.start).getTime() - ev.reminder*60000 - now.getTime();
+    if(diff>0 && diff<86400000) {
+      reminderTimers.push(setTimeout(() => {
+        const ppl = ev.people.filter(p=>p!==currentUserId).map(pid=>calData.members.find(m=>m.id===pid)?.name).join(', ');
+        showToast(`⏰ ${ev.title}`,`Starting in ${ev.reminder} min with ${ppl}`,true);
+      }, diff));
     }
   });
 }
 
-if('Notification' in window && Notification.permission === 'default') {
-  Notification.requestPermission();
-}
+// Auto-refresh data every 30 seconds
+setInterval(async () => {
+  if(!calCode) return;
+  await loadCalendar(calCode);
+  renderAll();
+}, 30000);
+
+if('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
 
 function renderAll() {
   renderMembers();
   renderCalendar();
   renderUpcoming();
 }
-
-renderAll();
-scheduleReminders();
-
-setTimeout(() => {
-  showToast('Welcome to Connect Friends! 👋', 'Tap ☰ to open the sidebar on mobile');
-}, 500);
 </script>
 </body>
 </html>
