@@ -385,14 +385,18 @@
   <div class="welcome-card" id="welcomeCard">
     <div class="welcome-logo">📅</div>
     <h1>Connect Friends</h1>
-    <p>Create a shared calendar with friends.<br>Everyone uses the same code to stay in sync.</p>
+    <p>Stay in sync with your friends.<br>Create a new code or join an existing one.</p>
 
-    <!-- Step 1: Choose create or join -->
+    <!-- Step 1: Name + choice -->
     <div id="stepChoice">
       <input class="welcome-input" id="yourName" placeholder="Your name" maxlength="20">
-      <button class="welcome-btn welcome-btn-primary" onclick="startCreate()">Create New Calendar</button>
-      <div class="welcome-divider">or</div>
-      <button class="welcome-btn welcome-btn-gold" onclick="showJoin()">Join with Code</button>
+      <input class="welcome-input" id="codeInput" placeholder="Enter a code" maxlength="10" style="text-align:center;font-size:20px;letter-spacing:3px;font-family:monospace;text-transform:uppercase">
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <button class="welcome-btn welcome-btn-gold" style="flex:1;margin-bottom:0" onclick="fillRandomMain()">🎲 Random Code</button>
+      </div>
+      <div class="welcome-error" id="choiceError"></div>
+      <button class="welcome-btn welcome-btn-primary" onclick="handleCode()">Continue</button>
+      <p class="welcome-small" style="margin-top:12px">Enter a new code to create a calendar, or an existing code to join one.</p>
     </div>
 
     <!-- Step 2a: Created — show code -->
@@ -403,11 +407,12 @@
       <button class="welcome-btn welcome-btn-primary" style="margin-top:20px" onclick="enterCalendar()">Enter Calendar</button>
     </div>
 
-    <!-- Step 2b: Join -->
+    <!-- Step 2b: Join existing -->
     <div id="stepJoin" style="display:none">
-      <input class="welcome-input" id="joinCode" placeholder="Enter 6-digit code" maxlength="6" style="text-align:center;font-size:20px;letter-spacing:4px;font-family:monospace">
-      <div class="welcome-error" id="joinError">Calendar not found. Check your code.</div>
-      <button class="welcome-btn welcome-btn-primary" onclick="joinCalendar()">Join Calendar</button>
+      <p style="margin-bottom:12px">Calendar found! 🎉</p>
+      <div class="welcome-code" id="joinFoundCode"></div>
+      <p class="welcome-small" id="joinMemberCount"></p>
+      <button class="welcome-btn welcome-btn-primary" style="margin-top:20px" onclick="confirmJoin()">Join Calendar</button>
       <button class="welcome-back-btn" onclick="showChoice()">← Back</button>
     </div>
   </div>
@@ -560,73 +565,95 @@ function fmt(y,m,d) { return new Date(y,m,d).toISOString().split('T')[0]; }
 // --- Storage helpers ---
 async function saveCalendar() {
   try {
-    await STORAGE.set('cal-' + calCode, JSON.stringify(calData), true);
-  } catch(e) { console.error('Save failed:', e); }
+    const result = await STORAGE.set('cal-' + calCode, JSON.stringify(calData), true);
+    if(!result) console.error('Save returned null');
+  } catch(e) {
+    console.error('Save failed:', e);
+    showToast('Save Error', 'Could not save. Please try again.');
+  }
 }
 
 async function loadCalendar(code) {
   try {
     const r = await STORAGE.get('cal-' + code, true);
-    if(r && r.value) {
+    if(r !== null && r !== undefined && r.value) {
       calData = JSON.parse(r.value);
       return true;
     }
-  } catch(e) { console.log('Not found'); }
-  return false;
+    return false;
+  } catch(e) {
+    // Key doesn't exist or other error — this is expected for new codes
+    return false;
+  }
 }
 
 // --- Welcome screen ---
-function showJoin() {
-  document.getElementById('stepChoice').style.display = 'none';
-  document.getElementById('stepJoin').style.display = '';
-  document.getElementById('joinCode').focus();
-}
 function showChoice() {
   document.getElementById('stepChoice').style.display = '';
   document.getElementById('stepJoin').style.display = 'none';
   document.getElementById('stepCreated').style.display = 'none';
-  document.getElementById('joinError').style.display = 'none';
+  document.getElementById('choiceError').style.display = 'none';
 }
 
-async function startCreate() {
+function fillRandomMain() {
+  document.getElementById('codeInput').value = genCode();
+}
+
+async function handleCode() {
   const name = document.getElementById('yourName').value.trim();
   if(!name) { document.getElementById('yourName').focus(); showToast('Enter Your Name','Please type your name first'); return; }
   currentUserName = name;
-  calCode = genCode();
-  calData = {
-    members:[{id:1, name:name, color:MEMBER_COLORS[0]}],
-    events:[], nextMemberId:2, nextEventId:1
-  };
-  currentUserId = 1;
-  await saveCalendar();
 
-  document.getElementById('newCode').textContent = calCode;
-  document.getElementById('stepChoice').style.display = 'none';
-  document.getElementById('stepCreated').style.display = '';
-}
-
-async function joinCalendar() {
-  const name = document.getElementById('yourName').value.trim();
-  if(!name) { showChoice(); document.getElementById('yourName').focus(); showToast('Enter Your Name','Go back and type your name first'); return; }
-  currentUserName = name;
-  const code = document.getElementById('joinCode').value.trim().toUpperCase();
-  if(code.length !== 6) { document.getElementById('joinError').textContent='Please enter a 6-digit code'; document.getElementById('joinError').style.display=''; return; }
-
-  const found = await loadCalendar(code);
-  if(!found) {
-    document.getElementById('joinError').textContent = 'Calendar not found. Check your code.';
-    document.getElementById('joinError').style.display = '';
+  let code = document.getElementById('codeInput').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(code.length < 3 || code.length > 10) {
+    document.getElementById('choiceError').textContent = 'Code must be 3–10 letters/numbers.';
+    document.getElementById('choiceError').style.display = '';
     return;
   }
-  calCode = code;
 
+  document.getElementById('choiceError').style.display = 'none';
+
+  // Check if calendar exists
+  const exists = await loadCalendar(code);
+
+  if(exists) {
+    // Calendar found — check if name already in it
+    calCode = code;
+    const existing = calData.members.find(m => m.name.toLowerCase() === currentUserName.toLowerCase());
+    if(existing) {
+      currentUserId = existing.id;
+      enterCalendar();
+    } else {
+      // New member — show join confirmation
+      document.getElementById('joinFoundCode').textContent = code;
+      document.getElementById('joinMemberCount').textContent = `${calData.members.length} member${calData.members.length!==1?'s':''} already in this calendar`;
+      document.getElementById('stepChoice').style.display = 'none';
+      document.getElementById('stepJoin').style.display = '';
+    }
+  } else {
+    // New code — create calendar
+    calCode = code;
+    calData = {
+      members:[{id:1, name:name, color:MEMBER_COLORS[0]}],
+      events:[], nextMemberId:2, nextEventId:1
+    };
+    currentUserId = 1;
+    await saveCalendar();
+
+    document.getElementById('newCode').textContent = calCode;
+    document.getElementById('stepChoice').style.display = 'none';
+    document.getElementById('stepCreated').style.display = '';
+  }
+}
+
+async function confirmJoin() {
   // Check if already a member
-  const existing = calData.members.find(m => m.name.toLowerCase() === name.toLowerCase());
+  const existing = calData.members.find(m => m.name.toLowerCase() === currentUserName.toLowerCase());
   if(existing) {
     currentUserId = existing.id;
   } else {
     const newId = calData.nextMemberId++;
-    calData.members.push({id:newId, name:name, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
+    calData.members.push({id:newId, name:currentUserName, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
     currentUserId = newId;
     await saveCalendar();
   }
@@ -644,14 +671,16 @@ function enterCalendar() {
 }
 
 function leaveCalendar() {
-  if(confirm('Leave this calendar? You can rejoin with the code: ' + calCode)) {
-    document.getElementById('appContainer').style.display = 'none';
-    document.getElementById('welcomeScreen').style.display = '';
-    showChoice();
-    calCode = '';
-    calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
-    currentUserId = null;
-  }
+  document.getElementById('appContainer').style.display = 'none';
+  document.getElementById('welcomeScreen').style.display = '';
+  showChoice();
+  document.getElementById('yourName').value = currentUserName;
+  document.getElementById('codeInput').value = '';
+  calCode = '';
+  calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
+  currentUserId = null;
+  reminderTimers.forEach(t=>clearTimeout(t));
+  reminderTimers = [];
 }
 
 function copyCode() {
@@ -967,8 +996,13 @@ function scheduleReminders() {
 // Auto-refresh data every 30 seconds
 setInterval(async () => {
   if(!calCode) return;
-  await loadCalendar(calCode);
-  renderAll();
+  try {
+    const r = await STORAGE.get('cal-' + calCode, true);
+    if(r !== null && r !== undefined && r.value) {
+      calData = JSON.parse(r.value);
+      renderAll();
+    }
+  } catch(e) { /* ignore refresh errors */ }
 }, 30000);
 
 if('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
