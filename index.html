@@ -50,10 +50,7 @@
   @keyframes slideIn { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
   @keyframes fadeOut { to{transform:translateX(120%);opacity:0} }
 
-  /* Welcome / Join Screen */
-  .welcome-screen {
-    display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px;
-  }
+  .welcome-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
   .welcome-card {
     background:var(--pearl); border-radius:24px; padding:40px; max-width:440px; width:100%;
     box-shadow: 0 20px 60px rgba(67,33,95,0.15); text-align:center;
@@ -61,10 +58,6 @@
   .welcome-logo { font-size:48px; margin-bottom:12px; }
   .welcome-card h1 { font-size:28px; color:var(--royal); margin-bottom:6px; font-weight:800; }
   .welcome-card p { color:var(--text2); font-size:14px; margin-bottom:28px; line-height:1.5; }
-  .welcome-divider {
-    display:flex; align-items:center; gap:12px; margin:24px 0; color:var(--text2); font-size:13px;
-  }
-  .welcome-divider::before, .welcome-divider::after { content:''; flex:1; height:1px; background:var(--border); }
   .welcome-input {
     width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--charcoal);
     padding:12px 16px; border-radius:12px; font-size:15px; font-family:inherit; margin-bottom:12px;
@@ -85,16 +78,11 @@
     color:var(--royal); margin:12px 0; font-family:monospace; user-select:all;
   }
   .welcome-small { font-size:12px; color:var(--text2); margin-top:8px; }
-  .welcome-back-btn {
-    background:none; border:none; color:var(--royal); cursor:pointer; font-size:13px;
-    margin-top:12px; text-decoration:underline;
-  }
+  .welcome-back-btn { background:none; border:none; color:var(--royal); cursor:pointer; font-size:13px; margin-top:12px; text-decoration:underline; }
   .welcome-error { color:var(--danger); font-size:13px; margin-bottom:8px; display:none; }
 
-  /* Header */
   header {
-    background: var(--royal);
-    border-bottom:2px solid var(--gold);
+    background: var(--royal); border-bottom:2px solid var(--gold);
     padding:16px 24px; display:flex; align-items:center; justify-content:space-between;
     box-shadow: 0 4px 20px rgba(67,33,95,0.2);
   }
@@ -131,11 +119,6 @@
     display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;
   }
   .notification-bell:hover { background:var(--gold); color:var(--charcoal); }
-  .notification-bell .badge {
-    position:absolute; top:-4px; right:-4px; background:var(--danger); color:#fff;
-    font-size:10px; width:18px; height:18px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-weight:700;
-  }
   .leave-btn {
     background:rgba(192,57,43,0.15); color:#e74c3c; border:1px solid rgba(192,57,43,0.3);
     padding:8px 12px; border-radius:10px; font-size:12px; font-weight:600; cursor:pointer; transition:0.2s;
@@ -143,27 +126,17 @@
   .leave-btn:hover { background:rgba(192,57,43,0.25); }
 
   .app { display:flex; height:calc(100vh - 75px); }
-
   .sidebar {
     width:290px; background:var(--pearl); border-right:1px solid var(--border);
     padding:20px; display:flex; flex-direction:column; gap:20px; overflow-y:auto; flex-shrink:0;
   }
   .main { flex:1; padding:24px; overflow-y:auto; }
-
-  .sidebar-overlay {
-    display:none; position:fixed; inset:0; background:rgba(46,42,53,0.4); z-index:500;
-    backdrop-filter:blur(4px);
-  }
+  .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(46,42,53,0.4); z-index:500; backdrop-filter:blur(4px); }
   .sidebar-overlay.active { display:block; }
 
-  .section-title {
-    font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
-    color:var(--royal); margin-bottom:8px; font-weight:700;
-  }
+  .section-title { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--royal); margin-bottom:8px; font-weight:700; }
   .member-list { display:flex; flex-direction:column; gap:6px; }
-  .member {
-    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; transition:0.2s;
-  }
+  .member { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; transition:0.2s; }
   .member:hover { background:var(--surface3); }
   .member-avatar {
     width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
@@ -183,20 +156,11 @@
     cursor:pointer; font-weight:600; font-size:13px; transition:0.2s;
   }
   .add-member-input button:hover { background:var(--royal-light); }
+  .sidebar-close { display:none; background:none; border:none; color:var(--charcoal); font-size:24px; cursor:pointer; align-self:flex-end; padding:4px 8px; margin:-8px -8px 0 0; }
 
-  .sidebar-close {
-    display:none; background:none; border:none; color:var(--charcoal); font-size:24px;
-    cursor:pointer; align-self:flex-end; padding:4px 8px; margin:-8px -8px 0 0;
-  }
-
-  .share-box {
-    background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center;
-  }
+  .share-box { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center; }
   .share-box .share-label { font-size:11px; color:var(--text2); margin-bottom:6px; }
-  .share-box .share-code {
-    font-size:20px; font-weight:800; letter-spacing:3px; color:var(--royal);
-    font-family:monospace; cursor:pointer;
-  }
+  .share-box .share-code { font-size:20px; font-weight:800; letter-spacing:3px; color:var(--royal); font-family:monospace; cursor:pointer; }
   .share-box .share-hint { font-size:10px; color:var(--text2); margin-top:4px; }
 
   .upcoming-event {
@@ -221,10 +185,7 @@
   .cal-nav button:hover { background:var(--royal); color:var(--pearl); border-color:var(--royal); }
 
   .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .cal-day-name {
-    text-align:center; font-size:12px; color:var(--royal); padding:8px 0;
-    font-weight:700; text-transform:uppercase; letter-spacing:1px;
-  }
+  .cal-day-name { text-align:center; font-size:12px; color:var(--royal); padding:8px 0; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
   .cal-day {
     min-height:100px; background:var(--pearl); border:1px solid var(--border); border-radius:12px;
     padding:8px; cursor:pointer; transition:0.2s; position:relative;
@@ -255,17 +216,12 @@
   @keyframes modalIn { from{transform:scale(0.9) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
   .modal h3 { font-size:20px; margin-bottom:20px; font-weight:700; color:var(--royal); }
   .form-group { margin-bottom:16px; }
-  .form-group label {
-    display:block; font-size:12px; color:var(--royal); margin-bottom:6px;
-    font-weight:600; text-transform:uppercase; letter-spacing:0.5px;
-  }
+  .form-group label { display:block; font-size:12px; color:var(--royal); margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
   .form-group input, .form-group select, .form-group textarea {
     width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--charcoal);
     padding:10px 14px; border-radius:10px; font-size:14px; font-family:inherit;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    outline:none; border-color:var(--royal); box-shadow:0 0 8px rgba(67,33,95,0.15);
-  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--royal); box-shadow:0 0 8px rgba(67,33,95,0.15); }
   .form-group textarea { resize:vertical; min-height:60px; }
 
   .people-checkboxes { display:flex; flex-wrap:wrap; gap:8px; }
@@ -286,10 +242,7 @@
   .reminder-options label input { display:none; }
 
   .modal-actions { display:flex; gap:10px; margin-top:20px; }
-  .btn {
-    padding:10px 20px; border-radius:10px; border:none; font-size:14px; font-weight:600;
-    cursor:pointer; transition:0.2s; flex:1;
-  }
+  .btn { padding:10px 20px; border-radius:10px; border:none; font-size:14px; font-weight:600; cursor:pointer; transition:0.2s; flex:1; }
   .btn-primary { background:var(--royal); color:var(--pearl); }
   .btn-primary:hover { background:var(--royal-light); transform:translateY(-1px); box-shadow:0 4px 15px rgba(67,33,95,0.3); }
   .btn-secondary { background:var(--surface2); color:var(--charcoal); border:1px solid var(--border); }
@@ -319,36 +272,21 @@
 
   .rsvp-summary { display:flex; flex-direction:column; gap:8px; }
   .rsvp-group { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .rsvp-group-label {
-    font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px;
-    padding:3px 10px; border-radius:8px; min-width:60px; text-align:center;
-  }
+  .rsvp-group-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:3px 10px; border-radius:8px; min-width:60px; text-align:center; }
   .rsvp-group-label.going-label { background:rgba(39,174,96,0.1); color:var(--going); }
   .rsvp-group-label.maybe-label { background:rgba(230,214,168,0.4); color:var(--warning); }
   .rsvp-group-label.cant-label { background:rgba(192,57,43,0.1); color:var(--cant); }
   .rsvp-group-label.pending-label { background:var(--surface3); color:var(--text2); }
-  .rsvp-person {
-    display:flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px;
-    font-size:12px; background:var(--surface2); color:var(--charcoal);
-  }
+  .rsvp-person { display:flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:12px; background:var(--surface2); color:var(--charcoal); }
   .rsvp-person .rp-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
   .color-options { display:flex; gap:8px; }
-  .color-opt {
-    width:28px; height:28px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:0.2s;
-  }
+  .color-opt { width:28px; height:28px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:0.2s; }
   .color-opt:hover, .color-opt.selected { border-color:var(--royal); transform:scale(1.15); }
 
   ::-webkit-scrollbar { width:6px; }
   ::-webkit-scrollbar-track { background:transparent; }
   ::-webkit-scrollbar-thumb { background:rgba(67,33,95,0.2); border-radius:3px; }
-
-  .loading-spinner {
-    display:flex; align-items:center; justify-content:center; padding:40px;
-    color:var(--text2); font-size:14px; gap:10px;
-  }
-  .spinner { width:20px; height:20px; border:3px solid var(--surface3); border-top-color:var(--royal); border-radius:50%; animation:spin 0.6s linear infinite; }
-  @keyframes spin { to{transform:rotate(360deg)} }
 
   @media(max-width:768px) {
     .menu-btn { display:flex; }
@@ -380,14 +318,12 @@
 
 <div id="toast-container"></div>
 
-<!-- WELCOME SCREEN -->
 <div id="welcomeScreen" class="welcome-screen">
-  <div class="welcome-card" id="welcomeCard">
+  <div class="welcome-card">
     <div class="welcome-logo">📅</div>
     <h1>Connect Friends</h1>
     <p>Stay in sync with your friends.<br>Create a new code or join an existing one.</p>
 
-    <!-- Step 1: Name + choice -->
     <div id="stepChoice">
       <input class="welcome-input" id="yourName" placeholder="Your name" maxlength="20">
       <input class="welcome-input" id="codeInput" placeholder="Enter a code" maxlength="10" style="text-align:center;font-size:20px;letter-spacing:3px;font-family:monospace;text-transform:uppercase">
@@ -399,7 +335,6 @@
       <p class="welcome-small" style="margin-top:12px">Enter a new code to create a calendar, or an existing code to join one.</p>
     </div>
 
-    <!-- Step 2a: Created — show code -->
     <div id="stepCreated" style="display:none">
       <p style="margin-bottom:12px">Your calendar code is:</p>
       <div class="welcome-code" id="newCode"></div>
@@ -407,7 +342,6 @@
       <button class="welcome-btn welcome-btn-primary" style="margin-top:20px" onclick="enterCalendar()">Enter Calendar</button>
     </div>
 
-    <!-- Step 2b: Join existing -->
     <div id="stepJoin" style="display:none">
       <p style="margin-bottom:12px">Calendar found! 🎉</p>
       <div class="welcome-code" id="joinFoundCode"></div>
@@ -418,11 +352,10 @@
   </div>
 </div>
 
-<!-- MAIN APP (hidden initially) -->
 <div id="appContainer" style="display:none">
   <header>
     <div class="header-left">
-      <button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
       <div class="logo">
         <div class="logo-icon">📅</div>
         <h1>Connect Friends</h1>
@@ -431,9 +364,7 @@
     <div class="user-area">
       <div class="header-code" id="headerCode" onclick="copyCode()" title="Click to copy code"></div>
       <select class="user-select" id="currentUser"></select>
-      <button class="notification-bell" onclick="toggleNotifPanel()">
-        🔔
-      </button>
+      <button class="notification-bell" onclick="toggleNotifPanel()">🔔</button>
       <button class="leave-btn" onclick="leaveCalendar()">Leave</button>
     </div>
   </header>
@@ -478,7 +409,6 @@
   </div>
 </div>
 
-<!-- Add/Edit Event Modal -->
 <div class="modal-overlay" id="eventModal">
   <div class="modal">
     <h3 id="modalTitle">New Event</h3>
@@ -508,7 +438,6 @@
   </div>
 </div>
 
-<!-- Event Detail Modal -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal">
     <div class="event-detail-header">
@@ -538,20 +467,23 @@
 <script>
 const COLORS = ['#43215F','#5a3478','#C0392B','#27AE60','#2980B9','#D4A017','#E67E22','#8E44AD'];
 const MEMBER_COLORS = ['#43215F','#2980B9','#27AE60','#D4A017','#C0392B','#E67E22','#8E44AD','#5a3478'];
-const STORAGE = window.storage;
+const ST = window.storage;
 
 let calCode = '';
 let calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
 let currentUserId = null;
 let currentUserName = '';
 let editingEventId = null;
-let viewMonth, viewYear;
 let selectedColor = COLORS[0];
 let currentDetailEventId = null;
+let reminderTimers = [];
 
 const today = new Date();
-viewMonth = today.getMonth();
-viewYear = today.getFullYear();
+let viewMonth = today.getMonth(), viewYear = today.getFullYear();
+
+function capitalize(str) {
+  return str.toUpperCase();
+}
 
 function genCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -562,32 +494,30 @@ function genCode() {
 
 function fmt(y,m,d) { return new Date(y,m,d).toISOString().split('T')[0]; }
 
-// --- Storage helpers ---
+function showToast(title, msg, isReminder) {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast' + (isReminder ? ' reminder' : '');
+  t.innerHTML = `<span class="toast-icon">${isReminder?'⏰':'🔔'}</span><div class="toast-content"><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 5000);
+}
+
 async function saveCalendar() {
   try {
-    const result = await STORAGE.set('cal-' + calCode, JSON.stringify(calData), true);
-    if(!result) console.error('Save returned null');
-  } catch(e) {
-    console.error('Save failed:', e);
-    showToast('Save Error', 'Could not save. Please try again.');
-  }
+    await ST.set('cal-' + calCode, JSON.stringify(calData), true);
+  } catch(e) { console.error('Save failed:', e); }
 }
 
 async function loadCalendar(code) {
   try {
-    const r = await STORAGE.get('cal-' + code, true);
-    if(r !== null && r !== undefined && r.value) {
-      calData = JSON.parse(r.value);
-      return true;
-    }
+    const r = await ST.get('cal-' + code, true);
+    if(r && r.value) { calData = JSON.parse(r.value); return true; }
     return false;
-  } catch(e) {
-    // Key doesn't exist or other error — this is expected for new codes
-    return false;
-  }
+  } catch(e) { return false; }
 }
 
-// --- Welcome screen ---
+// --- Welcome flow ---
 function showChoice() {
   document.getElementById('stepChoice').style.display = '';
   document.getElementById('stepJoin').style.display = 'none';
@@ -600,8 +530,9 @@ function fillRandomMain() {
 }
 
 async function handleCode() {
-  const name = document.getElementById('yourName').value.trim();
-  if(!name) { document.getElementById('yourName').focus(); showToast('Enter Your Name','Please type your name first'); return; }
+  const name = capitalize(document.getElementById('yourName').value.trim());
+  if(!name) { document.getElementById('yourName').focus(); return; }
+  document.getElementById('yourName').value = name;
   currentUserName = name;
 
   let code = document.getElementById('codeInput').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
@@ -610,36 +541,28 @@ async function handleCode() {
     document.getElementById('choiceError').style.display = '';
     return;
   }
-
   document.getElementById('choiceError').style.display = 'none';
 
-  // Check if calendar exists
   const exists = await loadCalendar(code);
 
   if(exists) {
-    // Calendar found — check if name already in it
     calCode = code;
-    const existing = calData.members.find(m => m.name.toLowerCase() === currentUserName.toLowerCase());
+    // If name already in calendar, go straight in
+    const existing = calData.members.find(m => m.name.toLowerCase() === name.toLowerCase());
     if(existing) {
       currentUserId = existing.id;
       enterCalendar();
     } else {
-      // New member — show join confirmation
       document.getElementById('joinFoundCode').textContent = code;
       document.getElementById('joinMemberCount').textContent = `${calData.members.length} member${calData.members.length!==1?'s':''} already in this calendar`;
       document.getElementById('stepChoice').style.display = 'none';
       document.getElementById('stepJoin').style.display = '';
     }
   } else {
-    // New code — create calendar
     calCode = code;
-    calData = {
-      members:[{id:1, name:name, color:MEMBER_COLORS[0]}],
-      events:[], nextMemberId:2, nextEventId:1
-    };
+    calData = { members:[{id:1, name:name, color:MEMBER_COLORS[0]}], events:[], nextMemberId:2, nextEventId:1 };
     currentUserId = 1;
     await saveCalendar();
-
     document.getElementById('newCode').textContent = calCode;
     document.getElementById('stepChoice').style.display = 'none';
     document.getElementById('stepCreated').style.display = '';
@@ -647,13 +570,13 @@ async function handleCode() {
 }
 
 async function confirmJoin() {
-  // Check if already a member
+  await loadCalendar(calCode);
   const existing = calData.members.find(m => m.name.toLowerCase() === currentUserName.toLowerCase());
   if(existing) {
     currentUserId = existing.id;
   } else {
     const newId = calData.nextMemberId++;
-    calData.members.push({id:newId, name:currentUserName, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
+    calData.members.push({id:newId, name:currentUserName, color:MEMBER_COLORS[calData.members.length % MEMBER_COLORS.length]});
     currentUserId = newId;
     await saveCalendar();
   }
@@ -667,7 +590,6 @@ function enterCalendar() {
   document.getElementById('sidebarCode').textContent = calCode;
   renderAll();
   scheduleReminders();
-  showToast('Welcome! 👋', `You're in calendar ${calCode}`);
 }
 
 function leaveCalendar() {
@@ -679,16 +601,14 @@ function leaveCalendar() {
   calCode = '';
   calData = { members:[], events:[], nextMemberId:1, nextEventId:1 };
   currentUserId = null;
-  reminderTimers.forEach(t=>clearTimeout(t));
+  reminderTimers.forEach(t => clearTimeout(t));
   reminderTimers = [];
 }
 
 function copyCode() {
   navigator.clipboard.writeText(calCode).then(() => {
     showToast('Code Copied!', `${calCode} copied to clipboard`);
-  }).catch(() => {
-    showToast('Calendar Code', calCode);
-  });
+  }).catch(() => { showToast('Calendar Code', calCode); });
 }
 
 // --- Sidebar ---
@@ -701,41 +621,32 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('active');
 }
 
-function showToast(title, msg, isReminder) {
-  const c = document.getElementById('toast-container');
-  const t = document.createElement('div');
-  t.className = 'toast' + (isReminder ? ' reminder' : '');
-  t.innerHTML = `<span class="toast-icon">${isReminder?'⏰':'🔔'}</span><div class="toast-content"><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
-  c.appendChild(t);
-  setTimeout(() => t.remove(), 5000);
-}
-
+// --- Members ---
 function renderMembers() {
   const ml = document.getElementById('memberList');
   const us = document.getElementById('currentUser');
   ml.innerHTML = calData.members.length ? calData.members.map(m => `
     <div class="member">
-      <div class="member-avatar" style="background:${m.color}">${m.name[0]}</div>
-      <div><div class="member-name">${m.name}</div><div class="member-status">${m.id===currentUserId?'You':'Member'}</div></div>
+      <div class="member-avatar" style="background:${m.color}">${m.name.charAt(0).toUpperCase()}</div>
+      <div><div class="member-name">${capitalize(m.name)}</div><div class="member-status">${m.id===currentUserId?'You':'Member'}</div></div>
     </div>`).join('') : '<p style="font-size:13px;color:var(--text2)">No members yet</p>';
-  us.innerHTML = calData.members.map(m => `<option value="${m.id}" ${m.id===currentUserId?'selected':''}>${m.name}</option>`).join('');
+  us.innerHTML = calData.members.map(m => `<option value="${m.id}" ${m.id===currentUserId?'selected':''}>${capitalize(m.name)}</option>`).join('');
   us.onchange = e => { if(e.target.value) { currentUserId = +e.target.value; renderAll(); } };
 }
 
 async function addMember() {
   const inp = document.getElementById('newMemberName');
-  const n = inp.value.trim();
+  const n = capitalize(inp.value.trim());
   if(!n) return;
-  // Reload latest data first
   await loadCalendar(calCode);
   const newId = calData.nextMemberId++;
-  calData.members.push({id:newId, name:n, color:MEMBER_COLORS[(calData.members.length)%MEMBER_COLORS.length]});
+  calData.members.push({id:newId, name:n, color:MEMBER_COLORS[calData.members.length % MEMBER_COLORS.length]});
   await saveCalendar();
   inp.value = '';
   renderAll();
-  showToast('Member Added', `${n} joined the calendar!`);
 }
 
+// --- Upcoming ---
 function renderUpcoming() {
   if(!currentUserId) { document.getElementById('upcomingEvents').innerHTML=''; return; }
   const now = new Date();
@@ -745,67 +656,68 @@ function renderUpcoming() {
     .sort((a,b) => new Date(a.date+'T'+a.start) - new Date(b.date+'T'+b.start))
     .slice(0,5);
   document.getElementById('upcomingEvents').innerHTML = upcoming.length ? upcoming.map(e => {
-    const ppl = e.people.map(pid => calData.members.find(m=>m.id===pid)?.name).filter(Boolean);
-    const goingC = e.people.filter(pid => e.rsvp[pid]==='going').length;
-    const maybeC = e.people.filter(pid => e.rsvp[pid]==='maybe').length;
-    const cantC = e.people.filter(pid => e.rsvp[pid]==='cant').length;
+    const ppl = e.people.map(pid => calData.members.find(m=>m.id===pid)).filter(Boolean).map(m=>capitalize(m.name));
+    const gc = e.people.filter(pid => e.rsvp[pid]==='going').length;
+    const mc = e.people.filter(pid => e.rsvp[pid]==='maybe').length;
+    const cc = e.people.filter(pid => e.rsvp[pid]==='cant').length;
     const dt = new Date(e.date+'T'+e.start);
     return `<div class="upcoming-event" onclick="showDetail(${e.id})" style="border-left-color:${e.color}">
       <div class="ue-title">${e.title}</div>
       <div class="ue-time">${dt.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'})} · ${e.start}-${e.end}</div>
       <div class="ue-people">👥 ${ppl.join(', ')}</div>
       <div class="ue-rsvp">
-        ${goingC?`<span class="ue-rsvp-tag" style="background:rgba(39,174,96,0.1);color:var(--going)">✓${goingC}</span>`:''}
-        ${maybeC?`<span class="ue-rsvp-tag" style="background:rgba(230,214,168,0.4);color:var(--warning)">?${maybeC}</span>`:''}
-        ${cantC?`<span class="ue-rsvp-tag" style="background:rgba(192,57,43,0.1);color:var(--cant)">✕${cantC}</span>`:''}
+        ${gc?`<span class="ue-rsvp-tag" style="background:rgba(39,174,96,0.1);color:var(--going)">✓${gc}</span>`:''}
+        ${mc?`<span class="ue-rsvp-tag" style="background:rgba(230,214,168,0.4);color:var(--warning)">?${mc}</span>`:''}
+        ${cc?`<span class="ue-rsvp-tag" style="background:rgba(192,57,43,0.1);color:var(--cant)">✕${cc}</span>`:''}
       </div>
     </div>`;
   }).join('') : '<p style="font-size:13px;color:var(--text2)">No upcoming group events</p>';
 }
 
+// --- Calendar ---
 function renderCalendar() {
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('calTitle').textContent = `${months[viewMonth]} ${viewYear}`;
   const grid = document.getElementById('calGrid');
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   let html = days.map(d => `<div class="cal-day-name">${d}</div>`).join('');
-  const first = new Date(viewYear, viewMonth, 1);
   const last = new Date(viewYear, viewMonth+1, 0);
-  const startDay = first.getDay();
+  const startDay = new Date(viewYear, viewMonth, 1).getDay();
   const prevLast = new Date(viewYear, viewMonth, 0).getDate();
 
-  for(let i = startDay-1; i >= 0; i--) html += calDayHTML(prevLast-i, fmt(viewYear,viewMonth-1,prevLast-i), true);
-  for(let i = 1; i <= last.getDate(); i++) {
+  for(let i=startDay-1;i>=0;i--) html += calDayHTML(prevLast-i, fmt(viewYear,viewMonth-1,prevLast-i), true);
+  for(let i=1;i<=last.getDate();i++) {
     const dt = fmt(viewYear,viewMonth,i);
     const isToday = i===today.getDate() && viewMonth===today.getMonth() && viewYear===today.getFullYear();
     html += calDayHTML(i, dt, false, isToday);
   }
-  const rem = (7 - (startDay+last.getDate())%7)%7;
+  const rem = (7-(startDay+last.getDate())%7)%7;
   for(let i=1;i<=rem;i++) html += calDayHTML(i, fmt(viewYear,viewMonth+1,i), true);
   grid.innerHTML = html;
 }
 
 function calDayHTML(dayNum, dateStr, otherMonth, isToday) {
-  const dayEvents = calData.events.filter(e => e.date === dateStr).slice(0,3);
+  const dayEvents = calData.events.filter(e=>e.date===dateStr).slice(0,3);
   const cls = ['cal-day'];
   if(otherMonth) cls.push('other-month');
   if(isToday) cls.push('today');
   return `<div class="${cls.join(' ')}" onclick="openModal('${dateStr}')">
     <div class="day-num">${dayNum}</div>
     ${dayEvents.map(e => {
-      const myRsvp = currentUserId ? e.rsvp[currentUserId] : null;
-      const rd = myRsvp==='going'?'✓':myRsvp==='maybe'?'?':myRsvp==='cant'?'✕':'';
+      const r = currentUserId?e.rsvp[currentUserId]:null;
+      const rd = r==='going'?'✓':r==='maybe'?'?':r==='cant'?'✕':'';
       return `<div class="cal-event" style="background:${e.color}" onclick="event.stopPropagation();showDetail(${e.id})">${rd?rd+' ':''}${e.title}</div>`;
     }).join('')}
     ${calData.events.filter(e=>e.date===dateStr).length>3?`<div style="font-size:10px;color:var(--text2)">+${calData.events.filter(e=>e.date===dateStr).length-3} more</div>`:''}
   </div>`;
 }
 
-function changeMonth(delta) { viewMonth+=delta; if(viewMonth>11){viewMonth=0;viewYear++} if(viewMonth<0){viewMonth=11;viewYear--} renderCalendar(); }
+function changeMonth(d) { viewMonth+=d; if(viewMonth>11){viewMonth=0;viewYear++} if(viewMonth<0){viewMonth=11;viewYear--} renderCalendar(); }
 function goToday() { viewMonth=today.getMonth(); viewYear=today.getFullYear(); renderCalendar(); }
 
+// --- Event modal ---
 function openModal(dateStr) {
-  if(!calData.members.length) { showToast('Add Members First','Add at least one member'); return; }
+  if(!calData.members.length) return;
   editingEventId = null;
   document.getElementById('modalTitle').textContent = 'New Event';
   document.getElementById('deleteBtn').style.display = 'none';
@@ -826,11 +738,13 @@ function renderColorPicker() {
     `<div class="color-opt ${c===selectedColor?'selected':''}" style="background:${c}" onclick="selectedColor='${c}';renderColorPicker()"></div>`
   ).join('');
 }
+
 function renderPeopleCheckboxes(selected) {
   document.getElementById('evPeople').innerHTML = calData.members.map(m =>
-    `<label><input type="checkbox" value="${m.id}" ${selected.includes(m.id)?'checked':''}>${m.name}</label>`
+    `<label><input type="checkbox" value="${m.id}" ${selected.includes(m.id)?'checked':''}>${capitalize(m.name)}</label>`
   ).join('');
 }
+
 function closeModal() { document.getElementById('eventModal').classList.remove('active'); }
 
 async function saveEvent() {
@@ -842,8 +756,7 @@ async function saveEvent() {
   const people = [...document.querySelectorAll('#evPeople input:checked')].map(i=>+i.value);
   const reminder = +document.querySelector('input[name="reminder"]:checked').value;
 
-  if(!title||!date) { showToast('Error','Please fill in title and date'); return; }
-  if(!people.length) { showToast('Error','Select at least one person'); return; }
+  if(!title||!date||!people.length) return;
 
   await loadCalendar(calCode);
 
@@ -855,12 +768,10 @@ async function saveEvent() {
       Object.keys(newRsvp).forEach(pid => { if(!people.includes(+pid)) delete newRsvp[pid]; });
       Object.assign(ev, {title,date,start,end,desc,people,color:selectedColor,reminder,rsvp:newRsvp});
     }
-    showToast('Event Updated', `"${title}" updated`);
   } else {
     const rsvp = {};
     people.forEach(pid => { rsvp[pid] = pid===currentUserId ? 'going' : null; });
     calData.events.push({id:calData.nextEventId++, title, date, start, end, desc, people, color:selectedColor, reminder, rsvp});
-    showToast('Event Created', `"${title}" added`);
   }
   await saveCalendar();
   closeModal();
@@ -870,14 +781,13 @@ async function saveEvent() {
 async function deleteEvent() {
   if(!editingEventId) return;
   await loadCalendar(calCode);
-  const ev = calData.events.find(e=>e.id===editingEventId);
   calData.events = calData.events.filter(e=>e.id!==editingEventId);
   await saveCalendar();
-  showToast('Event Deleted', `"${ev?.title}" removed`);
   closeModal();
   renderAll();
 }
 
+// --- Detail modal ---
 function showDetail(id) {
   const ev = calData.events.find(e=>e.id===id);
   if(!ev) return;
@@ -888,12 +798,12 @@ function showDetail(id) {
   document.getElementById('detDesc').textContent = ev.desc || 'No description';
   document.getElementById('detReminder').textContent = ev.reminder ? `⏰ Reminder: ${ev.reminder} min before` : '';
 
-  const myRsvp = currentUserId ? ev.rsvp[currentUserId] : null;
   const isInvited = currentUserId && ev.people.includes(currentUserId);
   const btns = document.getElementById('rsvpButtons');
   if(isInvited) {
     btns.style.display = 'flex';
-    btns.querySelectorAll('.rsvp-btn').forEach(b => b.classList.remove('active'));
+    btns.querySelectorAll('.rsvp-btn').forEach(b=>b.classList.remove('active'));
+    const myRsvp = ev.rsvp[currentUserId];
     if(myRsvp) { const a = btns.querySelector(`.rsvp-btn.${myRsvp}`); if(a) a.classList.add('active'); }
   } else { btns.style.display = 'none'; }
   renderRSVPSummary(ev);
@@ -907,16 +817,15 @@ function renderRSVPSummary(ev) {
     if(!m) return;
     (groups[ev.rsvp[pid]] || groups.pending).push(m);
   });
-  let html = '';
   const rg = (label, cls, arr) => {
     if(!arr.length) return '';
-    return `<div class="rsvp-group"><span class="rsvp-group-label ${cls}">${label} (${arr.length})</span>${arr.map(m=>`<span class="rsvp-person"><span class="rp-dot" style="background:${m.color}"></span>${m.name}</span>`).join('')}</div>`;
+    return `<div class="rsvp-group"><span class="rsvp-group-label ${cls}">${label} (${arr.length})</span>${arr.map(m=>`<span class="rsvp-person"><span class="rp-dot" style="background:${m.color}"></span>${capitalize(m.name)}</span>`).join('')}</div>`;
   };
-  html += rg('Going','going-label',groups.going);
-  html += rg('Maybe','maybe-label',groups.maybe);
-  html += rg("Can't",'cant-label',groups.cant);
-  html += rg('Pending','pending-label',groups.pending);
-  document.getElementById('rsvpSummary').innerHTML = html;
+  document.getElementById('rsvpSummary').innerHTML =
+    rg('Going','going-label',groups.going) +
+    rg('Maybe','maybe-label',groups.maybe) +
+    rg("Can't",'cant-label',groups.cant) +
+    rg('Pending','pending-label',groups.pending);
 }
 
 async function setRSVP(status) {
@@ -932,9 +841,6 @@ async function setRSVP(status) {
   renderRSVPSummary(ev);
   renderCalendar();
   renderUpcoming();
-  const un = calData.members.find(m=>m.id===currentUserId)?.name;
-  const st = status==='going'?'Going ✓':status==='maybe'?'Maybe ?':"Can't ✕";
-  showToast('RSVP Updated', `${un} → ${st}`);
 }
 
 function closeDetail() { document.getElementById('detailModal').classList.remove('active'); currentDetailEventId=null; }
@@ -963,55 +869,39 @@ function editFromDetail() {
 function toggleNotifPanel() {
   if(!currentUserId) return;
   const pending = calData.events.filter(e=>e.people.includes(currentUserId)&&!e.rsvp[currentUserId]);
-  pending.forEach(e => showToast('RSVP Needed',`Respond to "${e.title}"`,true));
-  if(!pending.length) {
-    const upcoming = calData.events.filter(e=>e.people.length>1&&e.people.includes(currentUserId)).slice(0,3);
-    if(upcoming.length) upcoming.forEach(e => {
-      const ppl = e.people.filter(p=>p!==currentUserId).map(pid=>calData.members.find(m=>m.id===pid)?.name).join(', ');
-      showToast(e.title, `${e.date} at ${e.start} with ${ppl}`, true);
-    });
-    else showToast('All Clear','No pending RSVPs or upcoming events');
+  if(pending.length) {
+    pending.forEach(e => showToast('RSVP Needed',`Respond to "${e.title}"`,true));
+  } else {
+    showToast('All Clear','No pending RSVPs');
   }
 }
 
-let reminderTimers = [];
 function scheduleReminders() {
   reminderTimers.forEach(t=>clearTimeout(t));
   reminderTimers = [];
   if(!currentUserId) return;
   const now = new Date();
   calData.events.forEach(ev => {
-    if(!ev.reminder||!ev.people.includes(currentUserId)||ev.people.length<2) return;
-    if(ev.rsvp[currentUserId]==='cant') return;
+    if(!ev.reminder||!ev.people.includes(currentUserId)||ev.people.length<2||ev.rsvp[currentUserId]==='cant') return;
     const diff = new Date(ev.date+'T'+ev.start).getTime() - ev.reminder*60000 - now.getTime();
     if(diff>0 && diff<86400000) {
       reminderTimers.push(setTimeout(() => {
-        const ppl = ev.people.filter(p=>p!==currentUserId).map(pid=>calData.members.find(m=>m.id===pid)?.name).join(', ');
+        const ppl = ev.people.filter(p=>p!==currentUserId).map(pid=>calData.members.find(m=>m.id===pid)).filter(Boolean).map(m=>capitalize(m.name)).join(', ');
         showToast(`⏰ ${ev.title}`,`Starting in ${ev.reminder} min with ${ppl}`,true);
       }, diff));
     }
   });
 }
 
-// Auto-refresh data every 30 seconds
 setInterval(async () => {
   if(!calCode) return;
   try {
-    const r = await STORAGE.get('cal-' + calCode, true);
-    if(r !== null && r !== undefined && r.value) {
-      calData = JSON.parse(r.value);
-      renderAll();
-    }
-  } catch(e) { /* ignore refresh errors */ }
-}, 30000);
+    const r = await ST.get('cal-'+calCode, true);
+    if(r && r.value) { calData = JSON.parse(r.value); renderAll(); }
+  } catch(e) {}
+}, 15000);
 
-if('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
-
-function renderAll() {
-  renderMembers();
-  renderCalendar();
-  renderUpcoming();
-}
+function renderAll() { renderMembers(); renderCalendar(); renderUpcoming(); }
 </script>
 </body>
 </html>
