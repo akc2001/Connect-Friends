@@ -504,9 +504,17 @@ function showToast(title, msg, isReminder) {
 }
 
 async function saveCalendar() {
-  try {
-    await ST.set('cal-' + calCode, JSON.stringify(calData), true);
-  } catch(e) { console.error('Save failed:', e); }
+  for(let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const result = await ST.set('cal-' + calCode, JSON.stringify(calData), true);
+      if(result) return true;
+    } catch(e) {
+      console.error('Save attempt ' + (attempt+1) + ' failed:', e);
+      if(attempt < 2) await new Promise(r => setTimeout(r, 1000));
+    }
+  }
+  showToast('⚠️ Save Failed', 'Could not save. Check your connection and try again.');
+  return false;
 }
 
 async function loadCalendar(code) {
@@ -547,7 +555,6 @@ async function handleCode() {
 
   if(exists) {
     calCode = code;
-    // If name already in calendar, go straight in
     const existing = calData.members.find(m => m.name.toLowerCase() === name.toLowerCase());
     if(existing) {
       currentUserId = existing.id;
@@ -563,6 +570,11 @@ async function handleCode() {
     calData = { members:[{id:1, name:name, color:MEMBER_COLORS[0]}], events:[], nextMemberId:2, nextEventId:1 };
     currentUserId = 1;
     await saveCalendar();
+    // Verify save worked by reading it back
+    const verified = await loadCalendar(code);
+    if(!verified) {
+      showToast('⚠️ Storage Issue', 'Calendar created but may not persist. Try again if needed.');
+    }
     document.getElementById('newCode').textContent = calCode;
     document.getElementById('stepChoice').style.display = 'none';
     document.getElementById('stepCreated').style.display = '';
@@ -628,7 +640,8 @@ function renderMembers() {
   ml.innerHTML = calData.members.length ? calData.members.map(m => `
     <div class="member">
       <div class="member-avatar" style="background:${m.color}">${m.name.charAt(0).toUpperCase()}</div>
-      <div><div class="member-name">${capitalize(m.name)}</div><div class="member-status">${m.id===currentUserId?'You':'Member'}</div></div>
+      <div style="flex:1"><div class="member-name">${capitalize(m.name)}</div><div class="member-status">${m.id===currentUserId?'You':'Member'}</div></div>
+      ${m.id!==currentUserId?`<button onclick="removeMember(${m.id})" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:4px 8px;border-radius:8px;transition:0.2s" title="Remove member">✕</button>`:''}
     </div>`).join('') : '<p style="font-size:13px;color:var(--text2)">No members yet</p>';
   us.innerHTML = calData.members.map(m => `<option value="${m.id}" ${m.id===currentUserId?'selected':''}>${capitalize(m.name)}</option>`).join('');
   us.onchange = e => { if(e.target.value) { currentUserId = +e.target.value; renderAll(); } };
@@ -643,6 +656,22 @@ async function addMember() {
   calData.members.push({id:newId, name:n, color:MEMBER_COLORS[calData.members.length % MEMBER_COLORS.length]});
   await saveCalendar();
   inp.value = '';
+  renderAll();
+}
+
+async function removeMember(id) {
+  await loadCalendar(calCode);
+  const member = calData.members.find(m => m.id === id);
+  if(!member) return;
+  calData.members = calData.members.filter(m => m.id !== id);
+  // Remove from all events
+  calData.events.forEach(ev => {
+    ev.people = ev.people.filter(pid => pid !== id);
+    delete ev.rsvp[id];
+  });
+  // Remove events with no people left
+  calData.events = calData.events.filter(ev => ev.people.length > 0);
+  await saveCalendar();
   renderAll();
 }
 
